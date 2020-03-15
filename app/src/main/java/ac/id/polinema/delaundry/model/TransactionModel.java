@@ -1,30 +1,36 @@
 package ac.id.polinema.delaundry.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Transaction {
+public class TransactionModel {
 
     @SerializedName("no_nota")
+    @Expose
     private int noNota;
 
     @SerializedName("status_pembayaran")
+    @Expose
     private String statusPayment;
 
     @SerializedName("updated_at")
+    @Expose
     private String updatedAt;
 
     @SerializedName("created_at")
+    @Expose
     private String createdAt;
 
     @SerializedName("detail_transaction")
-    private List<TransactionDetail> transactions;
+    @Expose
+    private List<TransactionDetailModel> transactions;
 
-    public Transaction() {
+    public TransactionModel() {
     }
 
-    public Transaction(int noNota, String statusPayment, String updatedAt, String createdAt, List<TransactionDetail> transactions) {
+    public TransactionModel(int noNota, String statusPayment, String updatedAt, String createdAt, List<TransactionDetailModel> transactions) {
         this.noNota = noNota;
         this.statusPayment = statusPayment;
         this.updatedAt = updatedAt;
@@ -64,11 +70,11 @@ public class Transaction {
         this.createdAt = createdAt;
     }
 
-    public List<TransactionDetail> getTransactions() {
+    public List<TransactionDetailModel> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<TransactionDetail> transactions) {
+    public void setTransactions(List<TransactionDetailModel> transactions) {
         this.transactions = transactions;
     }
 }

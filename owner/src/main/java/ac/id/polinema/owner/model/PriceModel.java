@@ -1,35 +1,40 @@
-package ac.id.polinema.delaundry.model;
+package ac.id.polinema.owner.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "prices")
-public class Price {
+public class PriceModel {
 
     @SerializedName("id_harga")
+    @Expose
     @PrimaryKey
     @ColumnInfo(name = "id_harga")
     private int idHarga;
 
     @SerializedName("kelas")
+    @Expose
     @ColumnInfo(name = "kelas")
     private String kelas;
 
     @SerializedName("tipe")
+    @Expose
     @ColumnInfo(name = "tipe")
     private String type;
 
     @SerializedName("harga")
+    @Expose
     @ColumnInfo(name = "harga")
     private Long price;
 
-    public Price() {
+    public PriceModel() {
     }
 
-    public Price(int idHarga, String kelas, String type, Long price) {
+    public PriceModel(int idHarga, String kelas, String type, Long price) {
         this.idHarga = idHarga;
         this.kelas = kelas;
         this.type = type;

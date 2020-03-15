@@ -1,22 +1,26 @@
 package ac.id.polinema.delaundry.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TransactionDetail {
+public class TransactionDetailModel {
 
     @SerializedName("id_harga")
+    @Expose
     private int idHarga;
 
     @SerializedName("id_user")
+    @Expose
     private int bobot;
 
     @SerializedName("status")
+    @Expose
     private String status;
 
-    public TransactionDetail() {
+    public TransactionDetailModel() {
     }
 
-    public TransactionDetail(int idHarga, int bobot, String status) {
+    public TransactionDetailModel(int idHarga, int bobot, String status) {
         this.idHarga = idHarga;
         this.bobot = bobot;
         this.status = status;

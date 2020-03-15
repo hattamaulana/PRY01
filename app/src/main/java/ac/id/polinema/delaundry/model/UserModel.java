@@ -1,25 +1,30 @@
 package ac.id.polinema.delaundry.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+public class UserModel {
 
     @SerializedName("id_user")
+    @Expose
     private String idUser;
 
     @SerializedName("name")
+    @Expose
     private String name;
 
     @SerializedName("no_handphone")
+    @Expose
     private String noHandphone;
 
     @SerializedName("address")
+    @Expose
     private String address;
 
-    public User() {
+    public UserModel() {
     }
 
-    public User(String idUser, String name, String noHandphone, String address) {
+    public UserModel(String idUser, String name, String noHandphone, String address) {
         this.idUser = idUser;
         this.name = name;
         this.noHandphone = noHandphone;
