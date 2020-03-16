@@ -2,6 +2,7 @@ package ac.id.polinema.delaundry;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 public class App extends Application {
 
@@ -9,6 +10,12 @@ public class App extends Application {
 
     public static String IS_FIRST_TIME_LAUNCH = "IS_FIRST_TIME_LAUNCH";
     public static String NO_HANDPHONE = "NO_HANDPHONE";
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    }
 
     public static Boolean isLogIn() {
         return sharedPreferences.getBoolean(NO_HANDPHONE, false);
@@ -18,7 +25,7 @@ public class App extends Application {
         return sharedPreferences.getBoolean(IS_FIRST_TIME_LAUNCH, true);
     }
 
-    private static void setSharedPreferences(String key, Object obj) {
+    public static void setSharedPreferences(String key, Object obj) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         if (obj instanceof Boolean) {

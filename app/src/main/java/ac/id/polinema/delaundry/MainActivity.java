@@ -15,8 +15,8 @@ public class MainActivity extends AppCompatActivity {
         Class cls;
 
         if (App.isFirstTimeLaunch()) {
-            Repository repo = new Repository();
-            repo.loadPrices();
+            Repository repo = new Repository(getApplicationContext());
+            repo.loadPrices(true);
         }
 
         if (App.isLogIn()) {
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setStatusBarTransparent();
 
-        new Handler().postDelayed(runAsync, 3000);
+        new Handler().post(runAsync);
     }
 
     private void setStatusBarTransparent() {
