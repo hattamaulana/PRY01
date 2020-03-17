@@ -8,18 +8,24 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="ac.id.polinema.delaundry.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_history"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="ac.id.polinema.delaundry.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:name="ac.id.polinema.delaundry.ui.transactions.TransactionsFragment"
+        android:label="@string/title_transactions"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="ac.id.polinema.delaundry.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:name="ac.id.polinema.delaundry.ui.histroy.HistoryFragment"
+        android:label="@string/title_account"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="ac.id.polinema.delaundry.ui.account.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
 </navigation>
