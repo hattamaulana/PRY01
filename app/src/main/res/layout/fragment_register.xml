@@ -24,12 +24,12 @@
         app:hintTextColor="@android:color/primary_text_light"
         app:helperText="@string/helper_no_handphone"
         app:helperTextEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/btn_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_No_Telepon"
+            android:id="@+id/edt_nohandphone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@android:color/primary_text_light"
@@ -38,7 +38,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"

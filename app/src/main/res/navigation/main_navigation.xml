@@ -36,7 +36,14 @@
         android:id="@+id/login_navigation"
         android:name="ac.id.polinema.delaundry.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/loginToHome"
+            app:destination="@id/homeActivity"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/login_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/register_navigation"
@@ -44,7 +51,7 @@
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
-            android:id="@+id/action_registerFragment_to_createAccountFragment"
+            android:id="@+id/registerToCreateAccount"
             app:destination="@id/createaccount_navigation" />
     </fragment>
 
@@ -57,6 +64,12 @@
             android:name="no_handphone"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/createAccountToHome"
+            app:destination="@id/homeActivity"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/createaccount_navigation"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <activity
