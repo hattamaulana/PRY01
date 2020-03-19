@@ -25,7 +25,7 @@ public class SplashFragment extends Fragment {
 
         if (App.isFirstTimeLaunch()) {
             findNavController(getView()).navigate(R.id.toRegisterFragment);
-        } else if (!App.isLogIn()) {
+        } else if (App.isLogIn()) {
             findNavController(getView()).navigate(R.id.toLoginFragment);
         } else {
             findNavController(getView()).navigate(R.id.splashToHome);
