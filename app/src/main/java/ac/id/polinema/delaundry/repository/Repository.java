@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import ac.id.polinema.delaundry.App;
 import ac.id.polinema.delaundry.api.ApiService;
@@ -44,7 +45,7 @@ public class Repository {
                 // Saving data price from web service to room
                 List<PriceModel> prices = (List<PriceModel>) response.getData();
                 for (PriceModel price: prices) {
-                    dao.insert(price);
+                    Executors.newSingleThreadExecutor().submit(() -> dao.insert(price));
                 }
             }));
         } else {

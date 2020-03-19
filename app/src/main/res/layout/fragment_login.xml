@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".ui.login.LoginFragment"
+    android:background="@color/backgroundLight" >
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/No_TeleponInputLayout"
@@ -13,8 +14,16 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
+        android:textColorHint="@android:color/primary_text_light"
+        app:counterEnabled="true"
+        app:counterMaxLength="15"
+        app:counterTextColor="@android:color/primary_text_light"
+        app:boxBackgroundColor="@color/backgroundLight2"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:helperTextTextColor="@android:color/primary_text_light"
+        app:hintTextColor="@android:color/primary_text_light"
+        app:helperText="@string/helper_no_handphone"
         app:helperTextEnabled="true"
-        app:helperText="Masukkan Nomor Handphone Anda."
         app:layout_constraintBottom_toTopOf="@+id/PasswordInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -23,7 +32,9 @@
             android:id="@+id/input_No_Telepon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="No_Telepon" />
+            android:textColorHint="@android:color/primary_text_light"
+            android:textColor="@android:color/primary_text_light"
+            android:hint="@string/label_no_handphone" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -33,10 +44,14 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
-        android:outlineAmbientShadowColor="@color/colorPrimary"
-        android:outlineSpotShadowColor="@color/colorPrimary"
+        android:textColorHint="@android:color/primary_text_light"
+        app:boxBackgroundColor="@color/backgroundLight2"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:helperTextTextColor="@android:color/primary_text_light"
+        app:hintTextColor="@android:color/primary_text_light"
+        app:endIconTint="@android:color/primary_text_light"
         app:endIconMode="password_toggle"
-        app:helperText="Masukkan Password Anda."
+        app:helperText="@string/helper_password"
         app:helperTextEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +61,9 @@
             android:id="@+id/input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:textColorHint="@android:color/primary_text_light"
+            android:textColor="@android:color/primary_text_light"
+            android:hint="@string/label_password"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -58,7 +75,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="28dp"
         android:background="@drawable/btn_rounded"
-        android:text="LOG IN"
+        android:text="@string/label_login"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

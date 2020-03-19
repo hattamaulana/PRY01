@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateAccountActivity">
+    android:background="@color/backgroundLight"
+    tools:context=".ui.create_account.CreateAccountFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/NamaInputLayout"
@@ -13,8 +14,13 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
+        android:textColorHint="@android:color/primary_text_light"
+        app:boxBackgroundColor="@color/backgroundLight2"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:helperTextTextColor="@android:color/primary_text_light"
+        app:hintTextColor="@android:color/primary_text_light"
         app:helperTextEnabled="true"
-        app:helperText="Masukkan Nama Lengkap Anda."
+        app:helperText="@string/helper_nama"
         app:layout_constraintBottom_toTopOf="@+id/AlamatInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -23,7 +29,9 @@
             android:id="@+id/inputNama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nama" />
+            android:textColorHint="@android:color/primary_text_light"
+            android:textColor="@android:color/primary_text_light"
+            android:hint="@string/label_nama" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -33,8 +41,13 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
+        android:textColorHint="@android:color/primary_text_light"
+        app:boxBackgroundColor="@color/backgroundLight2"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:helperTextTextColor="@android:color/primary_text_light"
+        app:hintTextColor="@android:color/primary_text_light"
         app:helperTextEnabled="true"
-        app:helperText="Masukkan Alamat Anda"
+        app:helperText="@string/helper_alamat"
         app:layout_constraintBottom_toTopOf="@+id/PasswordInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -43,7 +56,9 @@
             android:id="@+id/input_Alamat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Alamat" />
+            android:textColorHint="@android:color/primary_text_light"
+            android:textColor="@android:color/primary_text_light"
+            android:hint="@string/label_alamat" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -53,6 +68,11 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
+        android:textColorHint="@android:color/primary_text_light"
+        app:boxBackgroundColor="@color/backgroundLight2"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:helperTextTextColor="@android:color/primary_text_light"
+        app:hintTextColor="@android:color/primary_text_light"
         app:helperTextEnabled="true"
         app:helperText="Buat Password Minimal 8 Karakter"
         app:layout_constraintBottom_toTopOf="@+id/Konfirmasi_PasswordInputLayout"
@@ -63,7 +83,9 @@
             android:id="@+id/input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password" />
+            android:textColorHint="@android:color/primary_text_light"
+            android:textColor="@android:color/primary_text_light"
+            android:hint="@string/label_password" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -73,7 +95,12 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
-        app:helperText="Masukkan Konfirmasi Password"
+        android:textColorHint="@android:color/primary_text_light"
+        app:boxBackgroundColor="@color/backgroundLight2"
+        app:boxStrokeColor="@color/colorPrimary"
+        app:helperTextTextColor="@android:color/primary_text_light"
+        app:hintTextColor="@android:color/primary_text_light"
+        app:helperText="@string/helper_confirm_password"
         app:helperTextEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +110,9 @@
             android:id="@+id/input_Konfirmasi_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Konfirmasi Password" />
+            android:textColorHint="@android:color/primary_text_light"
+            android:textColor="@android:color/primary_text_light"
+            android:hint="@string/label_confirm_password" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -96,7 +125,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/btn_rounded"
-        android:text="Create Account"
+        android:text="@string/label_create_account"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
