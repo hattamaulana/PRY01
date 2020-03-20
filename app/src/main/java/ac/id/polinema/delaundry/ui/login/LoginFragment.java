@@ -19,6 +19,7 @@ import com.mobsandgeeks.saripaar.annotation.Password;
 import java.util.List;
 
 import ac.id.polinema.delaundry.R;
+import ac.id.polinema.delaundry.repository.UserRepository;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -27,6 +28,7 @@ import static androidx.navigation.Navigation.findNavController;
 
 public class LoginFragment extends Fragment implements Validator.ValidationListener {
 
+    private UserRepository repository;
     private Validator validator;
 
     @NotEmpty
@@ -51,6 +53,7 @@ public class LoginFragment extends Fragment implements Validator.ValidationListe
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        repository = new UserRepository(getContext());
         validator = new Validator(this);
         validator.setValidationListener(this);
         ButterKnife.bind(this, getView());
@@ -58,7 +61,11 @@ public class LoginFragment extends Fragment implements Validator.ValidationListe
 
     @Override
     public void onValidationSucceeded() {
-        findNavController(getView()).navigate(R.id.loginToHome);
+        String noHandphone = this.noHandphone.getText().toString();
+        String password = this.password.getText().toString();
+        repository.login(noHandphone, password).observe(this, result -> {
+            if (result) findNavController(getView()).navigate(R.id.loginToHome);
+        });
     }
 
     @Override

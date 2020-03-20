@@ -20,6 +20,8 @@ import com.mobsandgeeks.saripaar.annotation.Password;
 import java.util.List;
 
 import ac.id.polinema.delaundry.R;
+import ac.id.polinema.delaundry.model.UserModel;
+import ac.id.polinema.delaundry.repository.UserRepository;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,6 +30,7 @@ import static androidx.navigation.Navigation.findNavController;
 
 public class CreateAccountFragment extends Fragment implements Validator.ValidationListener {
 
+    private UserRepository repository;
     private Validator validator;
 
     @NotEmpty
@@ -60,6 +63,7 @@ public class CreateAccountFragment extends Fragment implements Validator.Validat
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        repository = new UserRepository(getContext());
         validator = new Validator(this);
         validator.setValidationListener(this);
         ButterKnife.bind(this, getView());
@@ -67,7 +71,16 @@ public class CreateAccountFragment extends Fragment implements Validator.Validat
 
     @Override
     public void onValidationSucceeded() {
-        findNavController(getView()).navigate(R.id.createAccountToHome);
+        String name = this.name.getText().toString();
+        String address = this.address.getText().toString();
+        String password = this.password.getText().toString();
+        UserModel model = new UserModel();
+        model.setName(name);
+        model.setAddress(address);
+        model.setPassword(password);
+        repository.createAccount(model).observe(this, result -> {
+            if (result) findNavController(getView()).navigate(R.id.createAccountToHome);
+        });
     }
 
     @Override

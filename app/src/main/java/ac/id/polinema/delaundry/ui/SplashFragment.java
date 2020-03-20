@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import ac.id.polinema.delaundry.App;
 import ac.id.polinema.delaundry.R;
-import ac.id.polinema.delaundry.repository.Repository;
+import ac.id.polinema.delaundry.repository.PriceRepository;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -19,7 +19,7 @@ public class SplashFragment extends Fragment {
 
     private Runnable runAsync = () -> {
         if (App.isFirstTimeLaunch()) {
-            Repository repo = new Repository(getContext());
+            PriceRepository repo = new PriceRepository(getContext());
             repo.loadPrices(true);
         }
 

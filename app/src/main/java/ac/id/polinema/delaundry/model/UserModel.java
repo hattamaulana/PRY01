@@ -17,6 +17,10 @@ public class UserModel {
     @Expose
     private String noHandphone;
 
+    @SerializedName("password")
+    @Expose
+    private String password;
+
     @SerializedName("address")
     @Expose
     private String address;
@@ -24,10 +28,11 @@ public class UserModel {
     public UserModel() {
     }
 
-    public UserModel(String idUser, String name, String noHandphone, String address) {
+    public UserModel(String idUser, String name, String noHandphone, String password, String address) {
         this.idUser = idUser;
         this.name = name;
         this.noHandphone = noHandphone;
+        this.password = password;
         this.address = address;
     }
 
@@ -53,6 +58,14 @@ public class UserModel {
 
     public void setNoHandphone(String noHandphone) {
         this.noHandphone = noHandphone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getAddress() {

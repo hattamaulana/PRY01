@@ -22,7 +22,10 @@ import ac.id.polinema.delaundry.helper.ApiHelper;
 import ac.id.polinema.delaundry.helper.DbHelper;
 import ac.id.polinema.delaundry.model.PriceModel;
 
-public class Repository {
+import static ac.id.polinema.delaundry.repository.Utils.isConnected;
+import static ac.id.polinema.delaundry.repository.Utils.showMessage;
+
+public class PriceRepository {
 
     private Context context;
     private ApiService api;
@@ -30,16 +33,18 @@ public class Repository {
 
     private MutableLiveData<List<PriceModel>> livePrices;
 
-    public Repository(Context context) {
+    public PriceRepository(Context context) {
         this.context = context;
         api = ApiHelper.getInstance();
         database = DbHelper.instance(context);
+
+        livePrices = new MutableLiveData<>();
     }
 
     public LiveData<List<PriceModel>> loadPrices(boolean update) {
         PriceDao dao = database.priceDao();
 
-        if (isConnected()) {
+        if (isConnected(context)) {
             api.getPrices().enqueue(new ApiHelper.EnQueue<>((response) -> {
                 App.setSharedPreferences(App.IS_FIRST_TIME_LAUNCH, false);
                 // Saving data price from web service to room
@@ -50,7 +55,7 @@ public class Repository {
             }));
         } else {
             if (update) {
-                showMessage("Please Check Internet Connection.");
+                showMessage(context, "Please Check Internet Connection.");
                 return null;
             } else {
                 livePrices.postValue(dao.getAll());
@@ -58,23 +63,6 @@ public class Repository {
         }
 
         return livePrices;
-    }
-
-    private boolean isConnected() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null) {
-            return networkInfo.isConnected();
-        }
-
-        return false;
-    }
-
-    private void showMessage(String message) {
-        View view = ((Activity) context).findViewById(android.R.id.content);
-        Snackbar.make(view, message, Snackbar.LENGTH_LONG)
-                .show();
     }
 
 }
