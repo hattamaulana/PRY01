@@ -4,25 +4,58 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ac.id.polinema.delaundry.R;
+import ac.id.polinema.delaundry.model.PriceModel;
+import ac.id.polinema.delaundry.ui.RecyclerViewAdapter;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements RecyclerViewAdapter.Bind<PriceModel> {
 
-    private HomeViewModel homeViewModel;
+    private HomeViewModel viewModel;
+    private RecyclerViewAdapter adapter;
+
+    private List<PriceModel> prices = new ArrayList<>();
+
+    @BindView(R.id.rv_home) RecyclerView recyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        ButterKnife.bind(this, root);
         return root;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        adapter = new RecyclerViewAdapter<>(R.layout.item_price, prices, this);
+        recyclerView.setAdapter(adapter);
+
+        viewModel.getPrices().observe(getViewLifecycleOwner(), priceModels ->
+                adapter.setNewData(priceModels)
+        );
+    }
+
+    @Override
+    public void bind(BaseViewHolder holder, PriceModel priceModel) {
+        holder
+                .setText(R.id.tv_tipe, priceModel.getType())
+                .setText(R.id.tv_price, priceModel.getPrice().toString())
+                .setText(R.id.tv_class, priceModel.getKelas());
     }
 }
