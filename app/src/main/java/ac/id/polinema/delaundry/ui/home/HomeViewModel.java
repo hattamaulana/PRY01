@@ -1,14 +1,27 @@
 package ac.id.polinema.delaundry.ui.home;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+import java.util.List;
 
-    private MutableLiveData<String> mText;
+import ac.id.polinema.delaundry.model.PriceModel;
+import ac.id.polinema.delaundry.repository.PriceRepository;
 
-    public HomeViewModel() {
-        mText = new MutableLiveData<>();
+public class HomeViewModel extends AndroidViewModel {
+
+    private PriceRepository priceRepository;
+
+    public HomeViewModel(@NonNull Application application) {
+        super(application);
+
+        priceRepository = new PriceRepository(application.getApplicationContext());
+    }
+
+    public LiveData<List<PriceModel>> getPrices() {
+        return priceRepository.loadPrices(false);
     }
 }

@@ -23,12 +23,12 @@ public class SplashFragment extends Fragment {
             repo.loadPrices(true);
         }
 
-        if (App.isFirstTimeLaunch()) {
+        if (!App.isFirstTimeLaunch()) {
             findNavController(getView()).navigate(R.id.toRegisterFragment);
-        } else if (App.isLogIn()) {
-            findNavController(getView()).navigate(R.id.toLoginFragment);
-        } else {
+        } else if (!App.isLogIn()) {
             findNavController(getView()).navigate(R.id.splashToHome);
+        } else {
+            findNavController(getView()).navigate(R.id.toLoginFragment);
         }
     };
 

@@ -1,15 +1,9 @@
 package ac.id.polinema.delaundry.repository;
 
-import android.app.Activity;
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.view.View;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -58,7 +52,9 @@ public class PriceRepository {
                 showMessage(context, "Please Check Internet Connection.");
                 return null;
             } else {
-                livePrices.postValue(dao.getAll());
+                Executors.newSingleThreadExecutor().submit(() -> {
+                    livePrices.postValue(dao.getAll());
+                });
             }
         }
 
