@@ -14,6 +14,8 @@ public class ApiHelper {
     private static String TAG = ApiHelper.class.getSimpleName();
     private static ApiService instance = null;
 
+    public static String URL = "http://192.168.56.1:3000/";
+
     private ApiHelper() {
     }
 
@@ -63,8 +65,6 @@ public class ApiHelper {
      */
     public static ApiService getInstance() {
         if (instance == null) {
-            String URL = "http://192.168.56.1:3000/";
-
             instance = new Retrofit.Builder().baseUrl(URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()

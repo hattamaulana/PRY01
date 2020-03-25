@@ -17,4 +17,6 @@ public interface PriceDao {
     @Query("SELECT * FROM prices")
     List<PriceModel> getAll();
 
+    @Query("DELETE FROM prices")
+    void removeAll();
 }

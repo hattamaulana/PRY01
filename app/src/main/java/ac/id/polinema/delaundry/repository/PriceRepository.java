@@ -1,6 +1,7 @@
 package ac.id.polinema.delaundry.repository;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -20,6 +21,8 @@ import static ac.id.polinema.delaundry.repository.Utils.isConnected;
 import static ac.id.polinema.delaundry.repository.Utils.showMessage;
 
 public class PriceRepository {
+
+    private String TAG = PriceRepository.class.getSimpleName();
 
     private Context context;
     private ApiService api;
@@ -43,9 +46,15 @@ public class PriceRepository {
                 App.setSharedPreferences(App.IS_FIRST_TIME_LAUNCH, false);
                 // Saving data price from web service to room
                 List<PriceModel> prices = (List<PriceModel>) response.getData();
-                for (PriceModel price: prices) {
-                    Executors.newSingleThreadExecutor().submit(() -> dao.insert(price));
-                }
+                Executors.newSingleThreadExecutor().submit(() -> {
+                    dao.removeAll();
+                    for (PriceModel price: prices) {
+                        dao.insert(price);
+                        Log.d(this.getClass().getSimpleName(), "loadPrices: "+ price.getIdHarga());
+                    }
+                });
+
+                livePrices.postValue(prices);
             }));
         } else {
             if (update) {
@@ -53,7 +62,10 @@ public class PriceRepository {
                 return null;
             } else {
                 Executors.newSingleThreadExecutor().submit(() -> {
-                    livePrices.postValue(dao.getAll());
+                    List<PriceModel> prices = dao.getAll();
+                    livePrices.postValue(prices);
+
+                    Log.i(TAG, "loadPrices: size prices="+ prices.size());
                 });
             }
         }
