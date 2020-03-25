@@ -2,15 +2,16 @@ package ac.id.polinema.delaundry.api;
 
 import java.util.List;
 
+import ac.id.polinema.delaundry.model.PriceModel;
 import ac.id.polinema.delaundry.model.TransactionModel;
 import ac.id.polinema.delaundry.model.UserModel;
-import ac.id.polinema.delaundry.model.PriceModel;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ApiService {
 
@@ -29,8 +30,11 @@ public interface ApiService {
     @POST("/order")
     Call<Response<TransactionModel>> createTransaction(@Body TransactionModel transactionModel);
 
-    @GET("/status")
-    Call<Response<TransactionModel>> getStatus();
+    @GET("/order/{idUser}/status")
+    Call<Response<TransactionModel>> getTransactions(@Path("idUser") String queries);
+
+    @GET("/order/{idUser}/history")
+    Call<Response<TransactionModel>> getHistory(@Path("idUser") String idUser);
 
     @GET("/prices")
     Call<Response<List<PriceModel>>> getPrices();

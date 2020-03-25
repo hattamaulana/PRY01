@@ -15,12 +15,12 @@ public class TransactionDetailModel {
 
     @SerializedName("status")
     @Expose
-    private String status;
+    private int status;
 
     public TransactionDetailModel() {
     }
 
-    public TransactionDetailModel(int idHarga, int bobot, String status) {
+    public TransactionDetailModel(int idHarga, int bobot, int status) {
         this.idHarga = idHarga;
         this.bobot = bobot;
         this.status = status;
@@ -42,11 +42,15 @@ public class TransactionDetailModel {
         this.bobot = bobot;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getStatusString() {
+        return (status == 1) ? "DONE" : "PROGGRESS";
     }
 }

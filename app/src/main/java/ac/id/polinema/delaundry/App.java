@@ -18,7 +18,8 @@ public class App extends Application {
     }
 
     public static Boolean isLogIn() {
-        return sharedPreferences.getBoolean(NO_HANDPHONE, false);
+        String noHandphone = sharedPreferences.getString(NO_HANDPHONE, "");
+        return !noHandphone.isEmpty();
     }
 
     public static Boolean isFirstTimeLaunch() {

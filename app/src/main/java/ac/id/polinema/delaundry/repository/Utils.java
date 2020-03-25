@@ -6,6 +6,11 @@ import android.net.ConnectivityManager;
 import android.util.Log;
 import android.view.View;
 
+import androidx.navigation.NavAction;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.NavDirections;
+
 import com.google.android.material.snackbar.Snackbar;
 
 import java.net.URL;
@@ -16,9 +21,24 @@ import java.util.concurrent.Future;
 
 import ac.id.polinema.delaundry.helper.ApiHelper;
 
+import static androidx.navigation.Navigation.findNavController;
+
 public class Utils {
 
     private static String TAG = Utils.class.getSimpleName();
+
+    public static void safeNavigate(View view, NavDirections directions) {
+        int resId = directions.getActionId();
+        NavController navController = findNavController(view);
+        NavDestination currentDestination = navController.getCurrentDestination();
+        NavAction action = (currentDestination != null) ?
+                currentDestination.getAction(resId) : navController.getGraph().getAction(resId);
+        if (action != null) {
+            if (currentDestination.getId() != action.getDestinationId()) {
+                navController.navigate(directions);
+            }
+        }
+    }
 
     public static boolean isConnected(Context context) {
         try {

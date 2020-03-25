@@ -27,9 +27,9 @@
         <action
             android:id="@+id/splashToHome"
             app:destination="@id/homeActivity"
+            app:launchSingleTop="true"
             app:popUpTo="@id/splash_navigation"
-            app:popUpToInclusive="true"
-            app:launchSingleTop="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -43,6 +43,9 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/login_navigation"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/loginToRegister"
+            app:destination="@id/register_navigation" />
     </fragment>
 
     <fragment
@@ -52,7 +55,13 @@
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/registerToCreateAccount"
-            app:destination="@id/createaccount_navigation" />
+            app:destination="@id/createaccount_navigation"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/register_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/registerToLogin"
+            app:destination="@id/login_navigation" />
     </fragment>
 
     <fragment

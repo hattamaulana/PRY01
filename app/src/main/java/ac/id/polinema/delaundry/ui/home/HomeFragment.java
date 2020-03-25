@@ -1,6 +1,7 @@
 package ac.id.polinema.delaundry.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,16 +47,20 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.Bind<P
         adapter = new RecyclerViewAdapter<>(R.layout.item_price, prices, this);
         recyclerView.setAdapter(adapter);
 
-        viewModel.getPrices().observe(getViewLifecycleOwner(), priceModels ->
-                adapter.setNewData(priceModels)
-        );
+        viewModel.getPrices().observe(getViewLifecycleOwner(), priceModels -> {
+            adapter.setNewData(priceModels);
+
+            for (PriceModel price : priceModels) {
+                Log.d(this.getClass().getSimpleName(), "onActivityCreated: " + price.getIdHarga());
+            }
+        });
     }
 
     @Override
     public void bind(BaseViewHolder holder, PriceModel priceModel) {
         holder
                 .setText(R.id.tv_tipe, priceModel.getType())
-                .setText(R.id.tv_price, priceModel.getPrice().toString())
+                .setText(R.id.tv_price, "Rp " + priceModel.getPrice().toString())
                 .setText(R.id.tv_class, priceModel.getKelas());
     }
 }

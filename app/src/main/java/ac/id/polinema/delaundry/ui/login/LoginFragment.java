@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -24,25 +25,29 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static androidx.navigation.Navigation.findNavController;
+import static ac.id.polinema.delaundry.repository.Utils.safeNavigate;
+import static ac.id.polinema.delaundry.ui.login.LoginFragmentDirections.loginToHome;
 
 public class LoginFragment extends Fragment implements Validator.ValidationListener {
 
-    private UserRepository repository;
-    private Validator validator;
-
-    @NotEmpty
+    @NotEmpty(messageResId = R.string.warning_empty)
     @BindView(R.id.edt_nohandphone)
     public EditText noHandphone;
-
-    @NotEmpty
-    @Password(min = 8, scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE_SYMBOLS)
+    private UserRepository repository;
+    private Validator validator;
+    @NotEmpty(messageResId = R.string.warning_empty)
+    @Password(min = 7, scheme = Password.Scheme.ANY)
     @BindView(R.id.edt_password)
     public EditText password;
+    private NavController navController;
 
     @OnClick(R.id.btn_login) void submit() {
         validator.validate();
-        Toast.makeText(getContext(), "OK", Toast.LENGTH_LONG).show();
+    }
+
+    @OnClick(R.id.tv_create_new_account)
+    void newAccount() {
+        safeNavigate(getView(), LoginFragmentDirections.loginToRegister());
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -64,7 +69,7 @@ public class LoginFragment extends Fragment implements Validator.ValidationListe
         String noHandphone = this.noHandphone.getText().toString();
         String password = this.password.getText().toString();
         repository.login(noHandphone, password).observe(this, result -> {
-            if (result) findNavController(getView()).navigate(R.id.loginToHome);
+            if (result) safeNavigate(getView(), loginToHome());
         });
     }
 

@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -24,19 +23,25 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static androidx.navigation.Navigation.findNavController;
+import static ac.id.polinema.delaundry.repository.Utils.safeNavigate;
+import static ac.id.polinema.delaundry.ui.register.RegisterFragmentDirections.registerToCreateAccount;
 
 public class RegisterFragment extends Fragment implements Validator.ValidationListener {
 
     private UserRepository repository;
     private Validator validator;
 
-    @NotEmpty
+    @NotEmpty(messageResId = R.string.warning_empty)
     @BindView(R.id.edt_nohandphone)
     public EditText noHandphone;
 
     @OnClick(R.id.btn_register) void submit() {
         validator.validate();
+    }
+
+    @OnClick(R.id.tv_have_account)
+    void login() {
+        safeNavigate(getView(), RegisterFragmentDirections.registerToLogin());
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -55,9 +60,11 @@ public class RegisterFragment extends Fragment implements Validator.ValidationLi
 
     @Override
     public void onValidationSucceeded() {
-        String noHandphone = this.noHandphone.getText().toString();
+        final String noHandphone = this.noHandphone.getText().toString();
         repository.register(noHandphone).observe(this, result -> {
-            if (result) findNavController(getView()).navigate(R.id.registerToCreateAccount);
+            if (result) {
+                safeNavigate(getView(), registerToCreateAccount(noHandphone));
+            }
         });
     }
 

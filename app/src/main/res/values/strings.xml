@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">DeLaundry</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
     <string name="title_transactions">Transaction</string>
     <string name="title_history">History</string>
     <string name="title_account">Account</string>
@@ -23,6 +24,11 @@
     <string name="helper_alamat">Masukkan Alamat Anda.</string>
     <string name="helper_nama">Masukkan Nama Lengkap Anda.</string>
 
+    <!-- Warning Form -->
+    <string name="warning_empty">Form ini harus di isi.</string>
+    <string name="warning_password">Konfirmasi Password Tidak Sama</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lbl_logout">Logout</string>
 </resources>

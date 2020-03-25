@@ -74,6 +74,7 @@
         app:helperTextTextColor="@android:color/primary_text_light"
         app:hintTextColor="@android:color/primary_text_light"
         app:helperTextEnabled="true"
+        app:endIconMode="password_toggle"
         app:helperText="Buat Password Minimal 8 Karakter"
         app:layout_constraintBottom_toTopOf="@+id/Konfirmasi_PasswordInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,6 +84,7 @@
             android:id="@+id/edt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:textColorHint="@android:color/primary_text_light"
             android:textColor="@android:color/primary_text_light"
             android:hint="@string/label_password" />
@@ -102,6 +104,7 @@
         app:hintTextColor="@android:color/primary_text_light"
         app:helperText="@string/helper_confirm_password"
         app:helperTextEnabled="true"
+        app:endIconMode="password_toggle"
         app:layout_constraintBottom_toTopOf="@+id/btn_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -110,6 +113,7 @@
             android:id="@+id/edt_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:textColorHint="@android:color/primary_text_light"
             android:textColor="@android:color/primary_text_light"
             android:hint="@string/label_confirm_password" />

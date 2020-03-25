@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-import ac.id.polinema.delaundry.App;
 import ac.id.polinema.delaundry.api.ApiService;
 import ac.id.polinema.delaundry.database.AppDatabase;
 import ac.id.polinema.delaundry.database.PriceDao;
@@ -43,7 +42,6 @@ public class PriceRepository {
 
         if (isConnected(context)) {
             api.getPrices().enqueue(new ApiHelper.EnQueue<>((response) -> {
-                App.setSharedPreferences(App.IS_FIRST_TIME_LAUNCH, false);
                 // Saving data price from web service to room
                 List<PriceModel> prices = (List<PriceModel>) response.getData();
                 Executors.newSingleThreadExecutor().submit(() -> {

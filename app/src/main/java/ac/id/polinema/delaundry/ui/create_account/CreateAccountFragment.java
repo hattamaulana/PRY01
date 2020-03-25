@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
 
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -19,6 +20,7 @@ import com.mobsandgeeks.saripaar.annotation.Password;
 
 import java.util.List;
 
+import ac.id.polinema.delaundry.App;
 import ac.id.polinema.delaundry.R;
 import ac.id.polinema.delaundry.model.UserModel;
 import ac.id.polinema.delaundry.repository.UserRepository;
@@ -33,26 +35,31 @@ public class CreateAccountFragment extends Fragment implements Validator.Validat
     private UserRepository repository;
     private Validator validator;
 
-    @NotEmpty
+    @NotEmpty(messageResId = R.string.warning_empty)
     @BindView(R.id.edt_name)
     public EditText name;
-
-    @NotEmpty
+    @NotEmpty(messageResId = R.string.warning_empty)
     @BindView(R.id.edt_address)
     public EditText address;
-
-    @NotEmpty
-    @Password(min = 8, scheme = Password.Scheme.ALPHA_NUMERIC_MIXED_CASE_SYMBOLS)
+    @NotEmpty(messageResId = R.string.warning_empty)
+    @Password(min = 7, scheme = Password.Scheme.ANY)
     @BindView(R.id.edt_password)
     public EditText password;
-
-    @NotEmpty
-    @ConfirmPassword
+    @NotEmpty(messageResId = R.string.warning_empty)
+    @ConfirmPassword(messageResId = R.string.warning_password)
     @BindView(R.id.edt_confirm_password)
     public EditText confirmPassword;
+    private String noHandphone;
 
     @OnClick(R.id.btn_register) void register() {
         validator.validate();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        CreateAccountFragmentArgs args = CreateAccountFragmentArgs.fromBundle(getArguments());
+        noHandphone = args.getNoHandphone();
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -75,11 +82,18 @@ public class CreateAccountFragment extends Fragment implements Validator.Validat
         String address = this.address.getText().toString();
         String password = this.password.getText().toString();
         UserModel model = new UserModel();
+        model.setNoHandphone(noHandphone);
         model.setName(name);
         model.setAddress(address);
         model.setPassword(password);
         repository.createAccount(model).observe(this, result -> {
-            if (result) findNavController(getView()).navigate(R.id.createAccountToHome);
+            if (result) {
+                App.setSharedPreferences(App.IS_FIRST_TIME_LAUNCH, false);
+                App.setSharedPreferences(App.NO_HANDPHONE, noHandphone);
+                NavDirections directions = CreateAccountFragmentDirections.createAccountToHome();
+                findNavController(getView()).navigate(directions);
+                getActivity().finish();
+            }
         });
     }
 

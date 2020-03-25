@@ -28,11 +28,9 @@ public class UserRepository {
     public LiveData<Boolean> register(String noHandphone) {
         if (isConnected(context)) {
             service.register(noHandphone).enqueue(new ApiHelper.EnQueue<>((response) -> {
-                if (response.getStatus() == 200) {
-                    liveResult.postValue(true);
-                    showMessage(context, response.getMessage());
-                } else {
-                    liveResult.postValue(false);
+                boolean isSuccess = response.getStatus() == 200;
+                liveResult.postValue(isSuccess);
+                if (!isSuccess) {
                     showMessage(context, response.getMessage());
                 }
             }));
@@ -46,11 +44,9 @@ public class UserRepository {
     public LiveData<Boolean> createAccount(UserModel model) {
         if (isConnected(context)) {
             service.createAccount(model).enqueue(new ApiHelper.EnQueue<>((response) -> {
-                if (response.getStatus() == 200) {
-                    liveResult.postValue(true);
-                    showMessage(context, response.getMessage());
-                } else {
-                    liveResult.postValue(false);
+                boolean isSuccess = response.getStatus() == 200;
+                liveResult.postValue(isSuccess);
+                if (!isSuccess) {
                     showMessage(context, response.getMessage());
                 }
             }));
@@ -64,11 +60,9 @@ public class UserRepository {
     public LiveData<Boolean> login(String noHandphone, String password) {
         if (isConnected(context)) {
             service.login(noHandphone, password).enqueue(new ApiHelper.EnQueue<>((response) -> {
-                if (response.getStatus() == 200) {
-                    liveResult.postValue(true);
-                    showMessage(context, response.getMessage());
-                } else {
-                    liveResult.postValue(false);
+                boolean isSuccess = response.getStatus() == 200;
+                liveResult.postValue(isSuccess);
+                if (!isSuccess) {
                     showMessage(context, response.getMessage());
                 }
             }));

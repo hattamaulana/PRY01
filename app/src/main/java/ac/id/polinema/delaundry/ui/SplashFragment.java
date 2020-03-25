@@ -13,6 +13,9 @@ import ac.id.polinema.delaundry.App;
 import ac.id.polinema.delaundry.R;
 import ac.id.polinema.delaundry.repository.PriceRepository;
 
+import static ac.id.polinema.delaundry.ui.SplashFragmentDirections.splashToHome;
+import static ac.id.polinema.delaundry.ui.SplashFragmentDirections.toLoginFragment;
+import static ac.id.polinema.delaundry.ui.SplashFragmentDirections.toRegisterFragment;
 import static androidx.navigation.Navigation.findNavController;
 
 public class SplashFragment extends Fragment {
@@ -23,12 +26,13 @@ public class SplashFragment extends Fragment {
             repo.loadPrices(true);
         }
 
-        if (!App.isFirstTimeLaunch()) {
-            findNavController(getView()).navigate(R.id.toRegisterFragment);
-        } else if (!App.isLogIn()) {
-            findNavController(getView()).navigate(R.id.splashToHome);
+        if (App.isFirstTimeLaunch()) {
+            findNavController(getView()).navigate(toRegisterFragment());
+        } else if (App.isLogIn()) {
+            findNavController(getView()).navigate(splashToHome());
+            getActivity().finish();
         } else {
-            findNavController(getView()).navigate(R.id.toLoginFragment);
+            findNavController(getView()).navigate(toLoginFragment());
         }
     };
 
