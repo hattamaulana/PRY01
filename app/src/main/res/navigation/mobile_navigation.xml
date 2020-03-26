@@ -9,7 +9,12 @@
         android:id="@+id/navigation_home"
         android:name="ac.id.polinema.delaundry.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+
+        <action
+            android:id="@+id/action_ToCreateTransactions"
+            app:destination="@id/createTransactionActivity" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_transaction"
@@ -28,4 +33,10 @@
         android:name="ac.id.polinema.delaundry.ui.account.AccountFragment"
         android:label="@string/title_account"
         tools:layout="@layout/fragment_account" />
+
+    <activity
+        android:id="@+id/createTransactionActivity"
+        android:name="ac.id.polinema.delaundry.CreateTransactionActivity"
+        android:label="activity_create_transaction"
+        tools:layout="@layout/activity_create_transaction" />
 </navigation>

@@ -31,4 +31,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lbl_logout">Logout</string>
+    <string name="lbl_order">Order</string>
+    <string name="lbl_antar_jemput">Antar Jemput</string>
+    <string name="lbl_datang_ke_toko_terdekat">Datang Ke Toko Terdekat</string>
+    <string name="lbl_metode_pengambilan_pakaian">Metode Pengambilan Pakaian</string>
 </resources>
