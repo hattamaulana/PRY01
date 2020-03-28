@@ -1,10 +1,12 @@
 package ac.id.polinema.delaundry.repository;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import ac.id.polinema.delaundry.App;
 import ac.id.polinema.delaundry.api.ApiService;
 import ac.id.polinema.delaundry.helper.ApiHelper;
 import ac.id.polinema.delaundry.model.UserModel;
@@ -44,6 +46,11 @@ public class UserRepository {
     public LiveData<Boolean> createAccount(UserModel model) {
         if (isConnected(context)) {
             service.createAccount(model).enqueue(new ApiHelper.EnQueue<>((response) -> {
+                UserModel user = (UserModel) response.getData();
+                App.setSharedPreferences(App.NO_HANDPHONE, user.getNoHandphone());
+                App.setSharedPreferences(App.KEY_ID_USER, user.getIdUser());
+                Log.d("TAG", "createAccount: "+ user.getIdUser());
+
                 boolean isSuccess = response.getStatus() == 200;
                 liveResult.postValue(isSuccess);
                 if (!isSuccess) {
@@ -60,6 +67,11 @@ public class UserRepository {
     public LiveData<Boolean> login(String noHandphone, String password) {
         if (isConnected(context)) {
             service.login(noHandphone, password).enqueue(new ApiHelper.EnQueue<>((response) -> {
+                UserModel user = (UserModel) response.getData();
+                App.setSharedPreferences(App.NO_HANDPHONE, user.getNoHandphone());
+                App.setSharedPreferences(App.KEY_ID_USER, user.getIdUser());
+                Log.d("TAG", "createAccount: "+ user.getIdUser());
+
                 boolean isSuccess = response.getStatus() == 200;
                 liveResult.postValue(isSuccess);
                 if (!isSuccess) {

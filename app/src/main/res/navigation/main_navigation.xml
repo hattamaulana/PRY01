@@ -45,7 +45,10 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/loginToRegister"
-            app:destination="@id/register_navigation" />
+            app:destination="@id/register_navigation"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/login_navigation"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -61,7 +64,10 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/registerToLogin"
-            app:destination="@id/login_navigation" />
+            app:destination="@id/login_navigation"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/register_navigation"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

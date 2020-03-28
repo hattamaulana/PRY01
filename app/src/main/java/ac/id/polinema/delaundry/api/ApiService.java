@@ -24,11 +24,11 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("/user/login")
-    Call<Response<Boolean>> login(@Field("no_handphone") String no_handphone,
+    Call<Response<UserModel>> login(@Field("no_handphone") String no_handphone,
                                   @Field("password") String password);
 
     @POST("/order")
-    Call<Response<TransactionModel>> createTransaction(@Body TransactionModel transactionModel);
+    Call<Response<Boolean>> createTransaction(@Body BodyRequest.Order order);
 
     @GET("/order/{idUser}/status")
     Call<Response<TransactionModel>> getTransactions(@Path("idUser") String queries);

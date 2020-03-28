@@ -14,7 +14,7 @@ public class ApiHelper {
     private static String TAG = ApiHelper.class.getSimpleName();
     private static ApiService instance = null;
 
-    public static String URL = "http://192.168.56.1:3000/";
+    public static String URL = "http://192.168.43.136:3000/";
 
     private ApiHelper() {
     }

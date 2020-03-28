@@ -30,16 +30,17 @@ import static ac.id.polinema.delaundry.ui.login.LoginFragmentDirections.loginToH
 
 public class LoginFragment extends Fragment implements Validator.ValidationListener {
 
+    private UserRepository repository;
+    private Validator validator;
+
     @NotEmpty(messageResId = R.string.warning_empty)
     @BindView(R.id.edt_nohandphone)
     public EditText noHandphone;
-    private UserRepository repository;
-    private Validator validator;
+
     @NotEmpty(messageResId = R.string.warning_empty)
     @Password(min = 7, scheme = Password.Scheme.ANY)
     @BindView(R.id.edt_password)
     public EditText password;
-    private NavController navController;
 
     @OnClick(R.id.btn_login) void submit() {
         validator.validate();
@@ -69,7 +70,10 @@ public class LoginFragment extends Fragment implements Validator.ValidationListe
         String noHandphone = this.noHandphone.getText().toString();
         String password = this.password.getText().toString();
         repository.login(noHandphone, password).observe(this, result -> {
-            if (result) safeNavigate(getView(), loginToHome());
+            if (result) {
+                safeNavigate(getView(), loginToHome());
+                getActivity().finish();
+            }
         });
     }
 

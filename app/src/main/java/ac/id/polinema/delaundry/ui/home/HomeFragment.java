@@ -22,6 +22,9 @@ import ac.id.polinema.delaundry.model.PriceModel;
 import ac.id.polinema.delaundry.ui.RecyclerViewAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static ac.id.polinema.delaundry.repository.Utils.safeNavigate;
 
 public class HomeFragment extends Fragment implements RecyclerViewAdapter.Bind<PriceModel> {
 
@@ -31,6 +34,9 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.Bind<P
     private List<PriceModel> prices = new ArrayList<>();
 
     @BindView(R.id.rv_home) RecyclerView recyclerView;
+    @OnClick(R.id.floatingActionButton) void handleFAB() {
+        safeNavigate(getView(), HomeFragmentDirections.actionToCreateTransactions());
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

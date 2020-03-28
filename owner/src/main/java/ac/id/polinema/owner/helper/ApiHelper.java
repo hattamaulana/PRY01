@@ -64,7 +64,7 @@ public class ApiHelper {
      */
     public static ApiService getInstance() {
         if (instance == null) {
-            String URL = "http://192.168.56.1/";
+            String URL = "http://192.168.43.136:3000";
 
             instance = new Retrofit.Builder().baseUrl(URL)
                     .addConverterFactory(GsonConverterFactory.create())

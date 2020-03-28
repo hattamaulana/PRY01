@@ -10,11 +10,16 @@ public class App extends Application {
 
     public static String IS_FIRST_TIME_LAUNCH = "IS_FIRST_TIME_LAUNCH";
     public static String NO_HANDPHONE = "NO_HANDPHONE";
+    public static String KEY_ID_USER = "KEY_ID_USER";
 
     @Override
     public void onCreate() {
         super.onCreate();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    }
+
+    public static String getIdUser() {
+        return sharedPreferences.getString(KEY_ID_USER, "");
     }
 
     public static Boolean isLogIn() {

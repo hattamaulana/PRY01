@@ -1,26 +1,11 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="ChipFilter" parent="Widget.MaterialComponents.Chip.Filter">
-        <!--            android:checkable="true"-->
-        <!--            android:textColor="@android:color/white"-->
-        <!--            app:textEndPadding="8dp"-->
-        <!--            app:checkedIcon="@drawable/ic_check_24dp"-->
-        <!--            app:chipIconTint="@android:color/white"-->
-        <!--            app:iconStartPadding="8dp"-->
-        <!--            app:checkedIconEnabled="true"-->
-        <!--            app:checkedIconVisible="true"-->
-        <!--            app:chipBackgroundColor="@color/backgroundChip"-->
-        <item name="chipBackgroundColor">@color/backgroundChip</item>
-        <item name="textEndPadding">8dp</item>
-        <item name="iconStartPadding">8dp</item>
     </style>
 
 </resources>
