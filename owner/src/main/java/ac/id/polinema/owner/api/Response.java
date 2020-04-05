@@ -1,22 +1,26 @@
 package ac.id.polinema.owner.api;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Response<T> {
 
     @SerializedName("status")
+    @Expose
     private int status;
 
     @SerializedName("message")
-    private int message;
+    @Expose
+    private String message;
 
     @SerializedName("data")
+    @Expose
     private T data;
 
     public Response() {
     }
 
-    public Response(int status, int message, T data) {
+    public Response(int status, String message, T data) {
         this.status = status;
         this.message = message;
         this.data = data;
@@ -30,11 +34,11 @@ public class Response<T> {
         this.status = status;
     }
 
-    public int getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(int message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 

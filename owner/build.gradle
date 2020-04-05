@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion 29
@@ -33,6 +35,7 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.google.android.material:material:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -43,8 +46,28 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$roomVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
+    // Lifecycle components
+    def lifecycle_version = "2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
+    // Jetpack Navigation
+    def nav_version = "2.3.0-alpha03"
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+
     /** Retrofit & GSon */
     implementation 'com.squareup.retrofit2:retrofit:2.7.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    /* Android Saripaar : Form Validation */
+    implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
+
+    /* Butter Knife : Android View Binding Library */
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/splash_navigation">
+
+    <fragment
+        android:id="@+id/splash_navigation"
+        android:name="ac.id.polinema.owner.ui.SplashFragment" >
+
+        <action
+            android:id="@+id/toLoginFragment"
+            app:destination="@id/login_navigation"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splash_navigation"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/splashToHome"
+            app:destination="@id/homeActivity"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splash_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/login_navigation"
+        android:name="ac.id.polinema.owner.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/loginToHome"
+            app:destination="@id/homeActivity"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/login_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!--
+    TODO : buat activity untuk home
+    android:name="ac.id.polinema.owner.HomeActivity"
+     -->
+    <activity
+        android:id="@+id/homeActivity"
+        android:label="HomeActivity" />
+</navigation>

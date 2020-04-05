@@ -4,7 +4,6 @@ import android.util.Log;
 
 import ac.id.polinema.owner.api.ApiService;
 import ac.id.polinema.owner.api.Response;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -14,6 +13,8 @@ public class ApiHelper {
 
     private static String TAG = ApiHelper.class.getSimpleName();
     private static ApiService instance = null;
+
+    public static String URL = "http://192.168.43.136:3000/";
 
     private ApiHelper() {
     }
@@ -64,8 +65,6 @@ public class ApiHelper {
      */
     public static ApiService getInstance() {
         if (instance == null) {
-            String URL = "http://192.168.43.136:3000";
-
             instance = new Retrofit.Builder().baseUrl(URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()

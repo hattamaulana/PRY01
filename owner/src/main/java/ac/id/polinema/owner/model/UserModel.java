@@ -1,22 +1,34 @@
 package ac.id.polinema.owner.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "users")
 public class UserModel {
 
+    @ColumnInfo(name = "id_user")
     @SerializedName("id_user")
     @Expose
+    @PrimaryKey
+    @NonNull
     private String idUser;
 
+    @ColumnInfo(name = "name")
     @SerializedName("name")
     @Expose
     private String name;
 
+    @ColumnInfo(name = "no_handphone")
     @SerializedName("no_handphone")
     @Expose
     private String noHandphone;
 
+    @ColumnInfo(name = "address")
     @SerializedName("address")
     @Expose
     private String address;

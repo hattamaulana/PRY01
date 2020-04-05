@@ -1,30 +1,42 @@
 package ac.id.polinema.owner.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+@Entity(tableName = "transactions")
 public class TransactionModel {
 
+    @PrimaryKey
+    @ColumnInfo(name = "no_nota")
     @SerializedName("no_nota")
     @Expose
     private int noNota;
 
+    @ColumnInfo(name = "status_pembayaran")
     @SerializedName("status_pembayaran")
     @Expose
     private String statusPayment;
 
+    @ColumnInfo(name = "updated_at")
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
 
+    @ColumnInfo(name = "created_at")
     @SerializedName("created_at")
     @Expose
     private String createdAt;
 
     @SerializedName("detail_transaction")
     @Expose
+    @Ignore
     private List<TransactionDetailModel> transactions;
 
     public TransactionModel() {
