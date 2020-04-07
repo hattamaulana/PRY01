@@ -72,7 +72,6 @@ public class LoginFragment extends Fragment implements Validator.ValidationListe
         repository.login(noHandphone, password).observe(this, result -> {
             if (result) {
                 safeNavigate(getView(), loginToHome());
-                getActivity().finish();
             }
         });
     }

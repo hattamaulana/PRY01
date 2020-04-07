@@ -57,6 +57,7 @@ public class Helper {
             return newThread.get();
         } catch (ExecutionException | InterruptedException | NullPointerException e) {
             Log.i(TAG, "isConnected: status=FALSE");
+            e.printStackTrace();
             return false;
         }
     }

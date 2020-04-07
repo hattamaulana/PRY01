@@ -18,7 +18,7 @@
         android:layout_marginBottom="32dp"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/buy"
+        android:src="@drawable/ic_buy"
         android:backgroundTint="@color/colorPrimary"
         android:tint="@color/backgroundLight"
         app:layout_constraintBottom_toBottomOf="parent"

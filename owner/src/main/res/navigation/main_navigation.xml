@@ -38,11 +38,8 @@
             app:popUpToInclusive="true" />
     </fragment>
 
-    <!--
-    TODO : buat activity untuk home
-    android:name="ac.id.polinema.owner.HomeActivity"
-     -->
     <activity
         android:id="@+id/homeActivity"
-        android:label="HomeActivity" />
+        android:name="ac.id.polinema.owner.HomeActivity"
+        android:label="@string/app_name" />
 </navigation>

@@ -16,14 +16,14 @@ import retrofit2.http.Path;
 public interface ApiService {
 
     @FormUrlEncoded
-    @POST("/user/register")
+    @POST("/ic_user/register")
     Call<Response<Boolean>> register(@Field("no_handphone") String no_handphone);
 
-    @POST("/user/register/account")
+    @POST("/ic_user/register/account")
     Call<Response<UserModel>> createAccount(@Body UserModel userModel);
 
     @FormUrlEncoded
-    @POST("/user/login")
+    @POST("/ic_user/login")
     Call<Response<UserModel>> login(@Field("no_handphone") String no_handphone,
                                   @Field("password") String password);
 
