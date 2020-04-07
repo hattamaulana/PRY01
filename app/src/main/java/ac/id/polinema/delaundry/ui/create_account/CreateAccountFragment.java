@@ -28,6 +28,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static ac.id.polinema.delaundry.repository.Utils.safeNavigate;
+import static ac.id.polinema.delaundry.ui.create_account.CreateAccountFragmentDirections.createAccountToHome;
 import static androidx.navigation.Navigation.findNavController;
 
 public class CreateAccountFragment extends Fragment implements Validator.ValidationListener {
@@ -37,18 +39,22 @@ public class CreateAccountFragment extends Fragment implements Validator.Validat
 
     @NotEmpty(messageResId = R.string.warning_empty)
     @BindView(R.id.edt_name)
-    public EditText name;
+    EditText name;
+
     @NotEmpty(messageResId = R.string.warning_empty)
     @BindView(R.id.edt_address)
-    public EditText address;
+    EditText address;
+
     @NotEmpty(messageResId = R.string.warning_empty)
     @Password(min = 7, scheme = Password.Scheme.ANY)
     @BindView(R.id.edt_password)
-    public EditText password;
+    EditText password;
+
     @NotEmpty(messageResId = R.string.warning_empty)
     @ConfirmPassword(messageResId = R.string.warning_password)
     @BindView(R.id.edt_confirm_password)
-    public EditText confirmPassword;
+    EditText confirmPassword;
+
     private String noHandphone;
 
     @OnClick(R.id.btn_register) void register() {
@@ -86,12 +92,13 @@ public class CreateAccountFragment extends Fragment implements Validator.Validat
         model.setName(name);
         model.setAddress(address);
         model.setPassword(password);
+
         repository.createAccount(model).observe(this, result -> {
             if (result) {
                 App.setSharedPreferences(App.IS_FIRST_TIME_LAUNCH, false);
                 App.setSharedPreferences(App.NO_HANDPHONE, noHandphone);
-                NavDirections directions = CreateAccountFragmentDirections.createAccountToHome();
-                findNavController(getView()).navigate(directions);
+
+                safeNavigate(getView(), createAccountToHome());
                 getActivity().finish();
             }
         });

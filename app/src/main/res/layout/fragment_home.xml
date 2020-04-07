@@ -20,7 +20,6 @@
         android:focusable="true"
         android:src="@drawable/ic_buy"
         android:backgroundTint="@color/colorPrimary"
-        android:tint="@color/backgroundLight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

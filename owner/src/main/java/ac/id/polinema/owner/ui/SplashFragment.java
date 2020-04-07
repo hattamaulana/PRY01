@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import ac.id.polinema.owner.App;
 import ac.id.polinema.owner.R;
+
 import static ac.id.polinema.owner.helper.Helper.safeNavigate;
 import static ac.id.polinema.owner.ui.SplashFragmentDirections.splashToHome;
 import static ac.id.polinema.owner.ui.SplashFragmentDirections.toLoginFragment;

@@ -33,7 +33,7 @@ public class RegisterFragment extends Fragment implements Validator.ValidationLi
 
     @NotEmpty(messageResId = R.string.warning_empty)
     @BindView(R.id.edt_nohandphone)
-    public EditText noHandphone;
+    EditText noHandphone;
 
     @OnClick(R.id.btn_register) void submit() {
         validator.validate();
@@ -64,7 +64,6 @@ public class RegisterFragment extends Fragment implements Validator.ValidationLi
         repository.register(noHandphone).observe(this, result -> {
             if (result) {
                 safeNavigate(getView(), registerToCreateAccount(noHandphone));
-                getActivity().finish();
             }
         });
     }
