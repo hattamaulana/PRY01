@@ -47,6 +47,7 @@ public class UserRepository {
         if (isConnected(context)) {
             service.createAccount(model).enqueue(new ApiHelper.EnQueue<>((response) -> {
                 UserModel user = (UserModel) response.getData();
+                App.setSharedPreferences(App.IS_FIRST_TIME_LAUNCH, false);
                 App.setSharedPreferences(App.NO_HANDPHONE, user.getNoHandphone());
                 App.setSharedPreferences(App.KEY_ID_USER, user.getIdUser());
                 Log.d("TAG", "createAccount: "+ user.getIdUser());
@@ -68,6 +69,7 @@ public class UserRepository {
         if (isConnected(context)) {
             service.login(noHandphone, password).enqueue(new ApiHelper.EnQueue<>((response) -> {
                 UserModel user = (UserModel) response.getData();
+                App.setSharedPreferences(App.IS_FIRST_TIME_LAUNCH, false);
                 App.setSharedPreferences(App.NO_HANDPHONE, user.getNoHandphone());
                 App.setSharedPreferences(App.KEY_ID_USER, user.getIdUser());
                 Log.d("TAG", "createAccount: "+ user.getIdUser());

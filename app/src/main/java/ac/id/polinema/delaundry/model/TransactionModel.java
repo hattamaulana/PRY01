@@ -9,11 +9,11 @@ public class TransactionModel {
 
     @SerializedName("no_nota")
     @Expose
-    private int noNota;
+    private String noNota;
 
     @SerializedName("status_pembayaran")
     @Expose
-    private int statusPayment;
+    private String statusPayment;
 
     @SerializedName("updated_at")
     @Expose
@@ -23,14 +23,15 @@ public class TransactionModel {
     @Expose
     private String createdAt;
 
-    @SerializedName("detail_transaction")
+    @SerializedName("detail_transactions")
     @Expose
     private List<TransactionDetailModel> transactions;
 
     public TransactionModel() {
     }
 
-    public TransactionModel(int noNota, int statusPayment, String updatedAt, String createdAt, List<TransactionDetailModel> transactions) {
+    public TransactionModel(String noNota, String statusPayment, String updatedAt, String createdAt,
+                            List<TransactionDetailModel> transactions) {
         this.noNota = noNota;
         this.statusPayment = statusPayment;
         this.updatedAt = updatedAt;
@@ -38,19 +39,19 @@ public class TransactionModel {
         this.transactions = transactions;
     }
 
-    public int getNoNota() {
+    public String getNoNota() {
         return noNota;
     }
 
-    public void setNoNota(int noNota) {
+    public void setNoNota(String noNota) {
         this.noNota = noNota;
     }
 
-    public int getStatusPayment() {
+    public String getStatusPayment() {
         return statusPayment;
     }
 
-    public void setStatusPayment(int statusPayment) {
+    public void setStatusPayment(String statusPayment) {
         this.statusPayment = statusPayment;
     }
 

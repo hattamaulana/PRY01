@@ -3,6 +3,7 @@ package ac.id.polinema.delaundry.repository;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
@@ -27,14 +28,10 @@ public class TransactionRepository {
     private ApiService api;
     private AppDatabase database;
 
-    private MutableLiveData<List<TransactionModel>> livePrices;
-
     public TransactionRepository(Context context) {
         this.context = context;
         api = ApiHelper.getInstance();
         database = DbHelper.instance(context);
-
-        livePrices = new MutableLiveData<>();
     }
 
     public MutableLiveData<Boolean> order(List<String> types) {
@@ -45,13 +42,12 @@ public class TransactionRepository {
         if (isConnected(context)) {
             Executors.newSingleThreadExecutor().submit(() -> {
                 List<Integer> ids = dao.getIdBytype(types);
-
                 order.setIdUser(App.getIdUser());
                 order.setIdPrices(ids);
-                api.createTransaction(order).enqueue(new ApiHelper.EnQueue<>(response -> {
-                    Log.d("TAG", "order: "+ response.getData().toString());
-
-                    liveStatus.postValue(true);
+                api.createTransaction(order)
+                   .enqueue(new ApiHelper.EnQueue<>(response -> {
+                       Log.d("TAG", "order: "+ response.getData().toString());
+                       liveStatus.postValue(true);
                 }));
             });
         } else {
@@ -59,5 +55,19 @@ public class TransactionRepository {
         }
 
         return liveStatus;
+    }
+
+    public LiveData<List<TransactionModel>> getActiveTransactions() {
+        MutableLiveData<List<TransactionModel>> liveData = new MutableLiveData<>();
+
+        api.getTransactions(App.getIdUser())
+           .enqueue(new ApiHelper.EnQueue<>(response -> {
+               List<TransactionModel> transactionList = (List<TransactionModel>) response.getData();
+               // TODO : Caching ke dalam database local
+
+               liveData.postValue(transactionList);
+        }));
+
+        return liveData;
     }
 }

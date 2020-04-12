@@ -31,7 +31,7 @@ public interface ApiService {
     Call<Response<Boolean>> createTransaction(@Body BodyRequest.Order order);
 
     @GET("/order/{idUser}/status")
-    Call<Response<TransactionModel>> getTransactions(@Path("idUser") String queries);
+    Call<Response<List<TransactionModel>>> getTransactions(@Path("idUser") String queries);
 
     @GET("/order/{idUser}/history")
     Call<Response<TransactionModel>> getHistory(@Path("idUser") String idUser);

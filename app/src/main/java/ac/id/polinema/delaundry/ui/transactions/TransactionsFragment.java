@@ -1,6 +1,7 @@
 package ac.id.polinema.delaundry.ui.transactions;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
@@ -17,12 +19,15 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import ac.id.polinema.delaundry.R;
 import ac.id.polinema.delaundry.model.PriceModel;
 import ac.id.polinema.delaundry.model.TransactionDetailModel;
+import ac.id.polinema.delaundry.model.TransactionModel;
 import ac.id.polinema.delaundry.ui.RecyclerViewAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TransactionsFragment extends Fragment
-        implements RecyclerViewAdapter.Bind<TransactionDetailModel> {
+public class TransactionsFragment extends Fragment implements
+        RecyclerViewAdapter.Bind<TransactionModel> {
+
+    private static final String TAG = TransactionsFragment.class.getSimpleName();
 
     private TransactionsViewModel viewModel;
 
@@ -30,7 +35,7 @@ public class TransactionsFragment extends Fragment
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        viewModel = ViewModelProviders.of(this).get(TransactionsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(TransactionsViewModel.class);
         View view = inflater.inflate(R.layout.fragment_transaction, container, false);
         ButterKnife.bind(this, view);
         return view;
@@ -39,29 +44,46 @@ public class TransactionsFragment extends Fragment
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        RecyclerViewAdapter<TransactionModel> adapter = new RecyclerViewAdapter<>(
+                R.layout.item_container_nested_recyclerview, null, this);
 
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter<>(
-                R.layout.item_price, null, this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+        viewModel.getActive()
+                 .observe(getViewLifecycleOwner(), adapter::setNewData);
     }
 
     @Override
-    public void bind(BaseViewHolder holder, TransactionDetailModel model) {
-        holder
-                .setText(R.id.tv_price, model.getBobot() + " Kg")
-                .setText(R.id.tv_class, model.getStatusString());
+    public void bind(BaseViewHolder holder, TransactionModel model) {
+        Log.d(TAG, "bind: detail transactions="+ model.getTransactions());
+        Log.d(TAG, "bind: status="+ model.getNoNota());
+
+        holder.setText(R.id.title, "Transaksi Aktif");
+        RecyclerView childRecyclerView = holder.itemView.findViewById(R.id.rv_parent);
+        RecyclerViewAdapter<TransactionDetailModel> adapter = new RecyclerViewAdapter<>(
+                R.layout.item_transactions, model.getTransactions(), this::bind);
+
+        childRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        childRecyclerView.setAdapter(adapter);
+    }
+
+    private void bind(BaseViewHolder holder, TransactionDetailModel model) {
+        Log.d(TAG, "bind: id_harga="+ model.getIdHarga());
+        Log.d(TAG, "bind: status="+ model.getStatusString());
+
+        holder.setText(R.id.tv_weight, model.getBobot() + " Kg")
+              .setText(R.id.tv_status, model.getStatusString());
 
         int color;
-        if (model.getStatus() == 0) {
+        if (!model.getStatus()) {
             color = getContext().getResources().getColor(R.color.backgroundProggress);
         } else {
             color = getContext().getResources().getColor(R.color.backgroundDone);
         }
 
-        TextView tvStatus = holder.itemView.findViewById(R.id.tv_class);
+        TextView tvStatus = holder.itemView.findViewById(R.id.tv_status);
         tvStatus.setBackgroundColor(color);
-
-        viewModel.prices.observe(getViewLifecycleOwner(), prices -> {
+        viewModel.fetchDataPrices().observe(getViewLifecycleOwner(), prices -> {
             for (PriceModel price : prices) {
                 if (price.getIdHarga() == model.getIdHarga()) {
                     holder.setText(R.id.tv_tipe, price.getKelas() + " / " + price.getType());

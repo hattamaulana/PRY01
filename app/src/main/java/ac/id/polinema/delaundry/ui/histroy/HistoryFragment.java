@@ -46,8 +46,8 @@ public class HistoryFragment extends Fragment
                 .setText(R.id.tv_tipe, model.getCreatedAt())
                 .setText(R.id.tv_price, model.getUpdatedAt());
 
-        int color = (model.getStatusPayment() == 0) ?
-                R.color.backgroundDone : R.color.backgroundDone;
+        int color = (model.getStatusPayment().equals("DONE")) ?
+                R.color.backgroundDone : R.color.backgroundProggress;
         TextView tvStatus = holder.itemView.findViewById(R.id.tv_class);
         tvStatus.setBackgroundColor(requireContext().getResources().getColor(color));
     }

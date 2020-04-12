@@ -4,29 +4,31 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 
 import java.util.List;
-import java.util.concurrent.Executors;
 
-import ac.id.polinema.delaundry.database.PriceDao;
-import ac.id.polinema.delaundry.helper.DbHelper;
 import ac.id.polinema.delaundry.model.PriceModel;
+import ac.id.polinema.delaundry.model.TransactionModel;
+import ac.id.polinema.delaundry.repository.PriceRepository;
+import ac.id.polinema.delaundry.repository.TransactionRepository;
 
 public class TransactionsViewModel extends AndroidViewModel {
 
-    public MutableLiveData<List<PriceModel>> prices;
-    private PriceDao priceDao;
+    private TransactionRepository repository;
+    private PriceRepository priceRepository;
 
     public TransactionsViewModel(@NonNull Application application) {
         super(application);
-        priceDao = DbHelper.instance(application.getApplicationContext()).priceDao();
+        repository = new TransactionRepository(application);
+        priceRepository = new PriceRepository(application);
     }
 
-    public void loadPrices() {
-        Executors.newSingleThreadExecutor().submit(() -> {
-            List<PriceModel> _prices = priceDao.getAll();
-            prices.postValue(_prices);
-        });
+    public LiveData<List<PriceModel>> fetchDataPrices() {
+        return priceRepository.loadPrices(false);
+    }
+
+    public LiveData<List<TransactionModel>> getActive() {
+        return repository.getActiveTransactions();
     }
 }
