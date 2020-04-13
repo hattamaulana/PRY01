@@ -34,7 +34,7 @@ public interface ApiService {
     Call<Response<List<TransactionModel>>> getTransactions(@Path("idUser") String queries);
 
     @GET("/order/{idUser}/history")
-    Call<Response<TransactionModel>> getHistory(@Path("idUser") String idUser);
+    Call<Response<List<TransactionModel>>> getHistory(@Path("idUser") String idUser);
 
     @GET("/prices")
     Call<Response<List<PriceModel>>> getPrices();

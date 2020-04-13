@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import ac.id.polinema.delaundry.App;
@@ -27,11 +28,13 @@ public class TransactionRepository {
     private Context context;
     private ApiService api;
     private AppDatabase database;
+    private ExecutorService executorService;
 
     public TransactionRepository(Context context) {
         this.context = context;
         api = ApiHelper.getInstance();
         database = DbHelper.instance(context);
+        executorService = Executors.newSingleThreadExecutor();
     }
 
     public MutableLiveData<Boolean> order(List<String> types) {
@@ -40,7 +43,7 @@ public class TransactionRepository {
         MutableLiveData<Boolean> liveStatus = new MutableLiveData<>();
 
         if (isConnected(context)) {
-            Executors.newSingleThreadExecutor().submit(() -> {
+            executorService.submit(() -> {
                 List<Integer> ids = dao.getIdBytype(types);
                 order.setIdUser(App.getIdUser());
                 order.setIdPrices(ids);
@@ -63,10 +66,20 @@ public class TransactionRepository {
         api.getTransactions(App.getIdUser())
            .enqueue(new ApiHelper.EnQueue<>(response -> {
                List<TransactionModel> transactionList = (List<TransactionModel>) response.getData();
-               // TODO : Caching ke dalam database local
-
                liveData.postValue(transactionList);
         }));
+
+        return liveData;
+    }
+
+    public LiveData<List<TransactionModel>> getDoneTransaction() {
+        MutableLiveData<List<TransactionModel>> liveData = new MutableLiveData<>();
+
+        api.getHistory(App.getIdUser())
+           .enqueue(new ApiHelper.EnQueue<>(response -> {
+               List<TransactionModel> transactionList = (List<TransactionModel>) response.getData();
+               liveData.postValue(transactionList);
+           }));
 
         return liveData;
     }
