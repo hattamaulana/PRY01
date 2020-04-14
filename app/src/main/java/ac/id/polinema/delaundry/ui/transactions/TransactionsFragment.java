@@ -59,7 +59,7 @@ public class TransactionsFragment extends Fragment implements
         Log.d(TAG, "bind: detail transactions="+ model.getTransactions());
         Log.d(TAG, "bind: status="+ model.getNoNota());
 
-        holder.setText(R.id.title, "Transaksi Aktif");
+        holder.setText(R.id.title, model.getNoNota());
         RecyclerView childRecyclerView = holder.itemView.findViewById(R.id.rv_parent);
         RecyclerViewAdapter<TransactionDetailModel> adapter = new RecyclerViewAdapter<>(
                 R.layout.item_transactions, model.getTransactions(), this::bind);

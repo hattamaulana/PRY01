@@ -9,7 +9,7 @@ public class TransactionDetailModel {
     @Expose
     private int idHarga;
 
-    @SerializedName("id_user")
+    @SerializedName("bobot")
     @Expose
     private int bobot;
 
