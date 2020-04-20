@@ -22,7 +22,7 @@ import ac.id.polinema.delaundry.ui.RecyclerViewAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static ac.id.polinema.delaundry.repository.Utils.getDateReadable;
+import static ac.id.polinema.delaundry.Utils.getDateReadable;
 
 public class HistoryFragment extends Fragment
         implements RecyclerViewAdapter.Bind<TransactionModel> {

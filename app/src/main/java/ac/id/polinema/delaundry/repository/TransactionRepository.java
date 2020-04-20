@@ -19,7 +19,7 @@ import ac.id.polinema.delaundry.helper.ApiHelper;
 import ac.id.polinema.delaundry.helper.DbHelper;
 import ac.id.polinema.delaundry.model.TransactionModel;
 
-import static ac.id.polinema.delaundry.repository.Utils.isConnected;
+import static ac.id.polinema.delaundry.Utils.isConnected;
 
 public class TransactionRepository {
 

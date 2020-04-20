@@ -1,4 +1,4 @@
-package ac.id.polinema.delaundry.repository;
+package ac.id.polinema.delaundry;
 
 import android.app.Activity;
 import android.content.Context;

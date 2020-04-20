@@ -1,27 +1,40 @@
 package ac.id.polinema.delaundry.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "user")
 public class UserModel {
 
+    @NonNull
+    @PrimaryKey
+    @ColumnInfo(name = "id_user")
     @SerializedName("id_user")
     @Expose
     private String idUser;
 
-    @SerializedName("name")
+    @ColumnInfo(name = "name")
+    @SerializedName("nama")
     @Expose
     private String name;
 
+    @ColumnInfo(name = "no_handphone")
     @SerializedName("no_handphone")
     @Expose
     private String noHandphone;
 
+    @ColumnInfo(name = "password")
     @SerializedName("password")
     @Expose
     private String password;
 
-    @SerializedName("address")
+    @ColumnInfo(name = "address")
+    @SerializedName("alamat")
     @Expose
     private String address;
 

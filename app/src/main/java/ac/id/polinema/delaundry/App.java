@@ -4,8 +4,11 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import ac.id.polinema.delaundry.model.UserModel;
+
 public class App extends Application {
 
+    private static UserModel userModel;
     private static SharedPreferences sharedPreferences;
 
     public static String IS_FIRST_TIME_LAUNCH = "IS_FIRST_TIME_LAUNCH";
@@ -20,6 +23,10 @@ public class App extends Application {
 
     public static String getIdUser() {
         return sharedPreferences.getString(KEY_ID_USER, "");
+    }
+
+    public static String noHandphone() {
+        return sharedPreferences.getString(NO_HANDPHONE, "");
     }
 
     public static Boolean isLogIn() {
@@ -41,5 +48,13 @@ public class App extends Application {
         } else if (obj instanceof Integer) {
             editor.putInt(key, (Integer) obj).apply();
         }
+    }
+
+    public static void setUserModel(UserModel userModel) {
+        App.userModel = userModel;
+    }
+
+    public static UserModel getUserModel() {
+        return userModel;
     }
 }

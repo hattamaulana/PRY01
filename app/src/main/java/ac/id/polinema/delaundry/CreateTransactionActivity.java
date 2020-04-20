@@ -23,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static ac.id.polinema.delaundry.repository.Utils.showMessage;
+import static ac.id.polinema.delaundry.Utils.showMessage;
 
 public class CreateTransactionActivity extends AppCompatActivity implements
         RecyclerViewAdapter.Bind<PriceList> {
