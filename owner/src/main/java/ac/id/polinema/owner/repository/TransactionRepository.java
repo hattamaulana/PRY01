@@ -11,7 +11,6 @@ import java.util.List;
 import ac.id.polinema.owner.database.UserDao;
 import ac.id.polinema.owner.helper.ApiHelper;
 import ac.id.polinema.owner.model.TransactionModel;
-import ac.id.polinema.owner.model.UserModel;
 
 public class TransactionRepository extends Repository {
 
@@ -32,15 +31,36 @@ public class TransactionRepository extends Repository {
 
             if (response.getStatus() == 200) {
                 List<TransactionModel> list = (List<TransactionModel>) response.getData();
-                executorService.submit(() -> {
-                    userDao.remove();
+                liveData.postValue(list);
+            }
+        }));
 
-                    for (TransactionModel transaction: list) {
-                        UserModel user = transaction.getUser();
-                        userDao.save(user);
-                    }
-                });
+        return liveData;
+    }
 
+    public LiveData<List<TransactionModel>> getOnProggress() {
+        MutableLiveData<List<TransactionModel>> liveData = new MutableLiveData<>();
+        service.getOrderOnProggress().enqueue(new ApiHelper.EnQueue<>(response -> {
+            Log.d(TAG, "getNewOrder: "+ response.getStatus());
+            Log.d(TAG, "getNewOrder: "+ response.getMessage());
+
+            if (response.getStatus() == 200) {
+                List<TransactionModel> list = (List<TransactionModel>) response.getData();
+                liveData.postValue(list);
+            }
+        }));
+
+        return liveData;
+    }
+
+    public LiveData<List<TransactionModel>> getHistory() {
+        MutableLiveData<List<TransactionModel>> liveData = new MutableLiveData<>();
+        service.getOrderHistory().enqueue(new ApiHelper.EnQueue<>(response -> {
+            Log.d(TAG, "getNewOrder: "+ response.getStatus());
+            Log.d(TAG, "getNewOrder: "+ response.getMessage());
+
+            if (response.getStatus() == 200) {
+                List<TransactionModel> list = (List<TransactionModel>) response.getData();
                 liveData.postValue(list);
             }
         }));
