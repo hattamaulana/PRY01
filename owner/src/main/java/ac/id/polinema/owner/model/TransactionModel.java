@@ -1,5 +1,6 @@
 package ac.id.polinema.owner.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -13,16 +14,17 @@ import java.util.List;
 @Entity(tableName = "transactions")
 public class TransactionModel {
 
+    @NonNull
     @PrimaryKey
     @ColumnInfo(name = "no_nota")
     @SerializedName("no_nota")
     @Expose
-    private int noNota;
+    private String noNota;
 
     @ColumnInfo(name = "status_pembayaran")
     @SerializedName("status_pembayaran")
     @Expose
-    private String statusPayment;
+    private boolean statusPayment;
 
     @ColumnInfo(name = "updated_at")
     @SerializedName("updated_at")
@@ -39,30 +41,38 @@ public class TransactionModel {
     @Ignore
     private List<TransactionDetailModel> transactions;
 
+    @SerializedName("user")
+    @Expose
+    @Ignore
+    private UserModel user;
+
     public TransactionModel() {
     }
 
-    public TransactionModel(int noNota, String statusPayment, String updatedAt, String createdAt, List<TransactionDetailModel> transactions) {
+    public TransactionModel(String noNota, boolean statusPayment, String updatedAt,
+                            String createdAt, List<TransactionDetailModel> transactions,
+                            UserModel user) {
         this.noNota = noNota;
         this.statusPayment = statusPayment;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
         this.transactions = transactions;
+        this.user = user;
     }
 
-    public int getNoNota() {
+    public String getNoNota() {
         return noNota;
     }
 
-    public void setNoNota(int noNota) {
+    public void setNoNota(String noNota) {
         this.noNota = noNota;
     }
 
-    public String getStatusPayment() {
+    public boolean isStatusPayment() {
         return statusPayment;
     }
 
-    public void setStatusPayment(String statusPayment) {
+    public void setStatusPayment(boolean statusPayment) {
         this.statusPayment = statusPayment;
     }
 
@@ -88,5 +98,13 @@ public class TransactionModel {
 
     public void setTransactions(List<TransactionDetailModel> transactions) {
         this.transactions = transactions;
+    }
+
+    public UserModel getUser() {
+        return user;
+    }
+
+    public void setUser(UserModel user) {
+        this.user = user;
     }
 }

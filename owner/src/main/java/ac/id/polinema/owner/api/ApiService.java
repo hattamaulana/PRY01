@@ -1,5 +1,7 @@
 package ac.id.polinema.owner.api;
 
+import java.util.List;
+
 import ac.id.polinema.owner.model.TransactionModel;
 import ac.id.polinema.owner.model.UserModel;
 import retrofit2.Call;
@@ -16,6 +18,6 @@ public interface ApiService {
                                     @Field("password") String password);
 
     @GET("/admin/order/new")
-    Call<Response<TransactionModel>> getNewOrder();
+    Call<Response<List<TransactionModel>>> getNewOrder();
 
 }

@@ -18,8 +18,8 @@ public class UserModel {
     @NonNull
     private String idUser;
 
-    @ColumnInfo(name = "name")
-    @SerializedName("name")
+    @ColumnInfo(name = "nama")
+    @SerializedName("nama")
     @Expose
     private String name;
 
@@ -29,7 +29,7 @@ public class UserModel {
     private String noHandphone;
 
     @ColumnInfo(name = "address")
-    @SerializedName("address")
+    @SerializedName("alamat")
     @Expose
     private String address;
 
