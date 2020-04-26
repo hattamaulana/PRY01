@@ -86,7 +86,7 @@ public class CreateAccountFragment extends Fragment implements Validator.Validat
         String address = this.address.getText().toString();
         String password = this.password.getText().toString();
         UserModel model = new UserModel();
-        model.setNoHandphone(noHandphone);
+        model.setNoHp(noHandphone);
         model.setName(name);
         model.setAddress(address);
         model.setPassword(password);

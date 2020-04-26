@@ -48,7 +48,7 @@ public class AccountFragment extends Fragment {
         UserModel user = App.getUserModel();
         if (user != null) {
             tvName.setText(user.getName());
-            tvNoHandphone.setText(user.getNoHandphone());
+            tvNoHandphone.setText(user.getNoHp());
             tvAddress.setText(user.getAddress());
         }
     }

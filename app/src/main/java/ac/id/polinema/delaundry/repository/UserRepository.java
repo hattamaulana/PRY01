@@ -6,8 +6,6 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.concurrent.ExecutionException;
-
 import ac.id.polinema.delaundry.App;
 import ac.id.polinema.delaundry.api.Response;
 import ac.id.polinema.delaundry.database.UserDao;
@@ -27,7 +25,7 @@ public class UserRepository extends Repository {
 
     public void loadUserActive() {
         executorService.submit(() -> {
-            UserModel user = dao.get();
+            UserModel user = dao.get().get(0);
             App.setUserModel(user);
         });
     }
@@ -61,23 +59,16 @@ public class UserRepository extends Repository {
     }
 
     private void success(Response response) {
-        Log.d(TAG, "register: "+ response.getStatus());
-        Log.d(TAG, "register: "+ response.getMessage());
+        Log.d(TAG, "success: "+ response.getStatus());
+        Log.d(TAG, "success: "+ response.getMessage());
 
         UserModel user = (UserModel) response.getData();
         App.setSharedPreferences(App.IS_FIRST_TIME_LAUNCH, false);
-        App.setSharedPreferences(App.NO_HANDPHONE, user.getNoHandphone());
+        App.setSharedPreferences(App.NO_HANDPHONE, user.getNoHp());
         App.setSharedPreferences(App.KEY_ID_USER, user.getIdUser());
-
-        try {
-            executorService.submit(() -> {
-                dao.remove();
-                dao.save(user);
-            }).get();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        showMessage(context, response.getMessage());
+        executorService.submit(() -> {
+            dao.remove();
+            dao.save(user);
+        });
     }
 }

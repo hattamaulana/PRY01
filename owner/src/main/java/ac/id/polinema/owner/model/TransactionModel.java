@@ -11,32 +11,47 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-@Entity(tableName = "transactions")
+@Entity(tableName = "transaksi")
 public class TransactionModel {
 
-    @NonNull
     @PrimaryKey
-    @ColumnInfo(name = "no_nota")
-    @SerializedName("no_nota")
+    @NonNull
+    @ColumnInfo(name = "noNota")
+    @SerializedName("noNota")
     @Expose
     private String noNota;
 
-    @ColumnInfo(name = "status_pembayaran")
-    @SerializedName("status_pembayaran")
+    @ColumnInfo(name = "pembayaran")
+    @SerializedName("pembayaran")
+    @Expose
+    private String pay;
+
+    @ColumnInfo(name = "statusPembayaran")
+    @SerializedName("statusPembayaran")
     @Expose
     private boolean statusPayment;
 
-    @ColumnInfo(name = "updated_at")
-    @SerializedName("updated_at")
+    @ColumnInfo(name = "statusPengerjaan")
+    @SerializedName("statusPengerjaan")
+    @Expose
+    private boolean proggress;
+
+    @ColumnInfo(name = "methodeDelivery")
+    @SerializedName("methodeDelivery")
+    @Expose
+    private boolean methodDelivery;
+
+    @ColumnInfo(name = "updatedAt")
+    @SerializedName("updatedAt")
     @Expose
     private String updatedAt;
 
-    @ColumnInfo(name = "created_at")
-    @SerializedName("created_at")
+    @ColumnInfo(name = "createdAt")
+    @SerializedName("createdAt")
     @Expose
     private String createdAt;
 
-    @SerializedName("detail_transaction")
+    @SerializedName("detail_transactions")
     @Expose
     @Ignore
     private List<TransactionDetailModel> transactions;
@@ -49,31 +64,76 @@ public class TransactionModel {
     public TransactionModel() {
     }
 
-    public TransactionModel(String noNota, boolean statusPayment, String updatedAt,
-                            String createdAt, List<TransactionDetailModel> transactions,
-                            UserModel user) {
+    public TransactionModel(@NonNull String noNota, String pay, boolean statusPayment,
+                            boolean proggress, boolean methodDelivery, String updatedAt,
+                            String createdAt) {
         this.noNota = noNota;
+        this.pay = pay;
         this.statusPayment = statusPayment;
+        this.proggress = proggress;
+        this.methodDelivery = methodDelivery;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
         this.transactions = transactions;
-        this.user = user;
     }
 
+    @Ignore
+    public TransactionModel(@NonNull String noNota, String pay, boolean statusPayment,
+                            boolean proggress, boolean methodDelivery, String updatedAt,
+                            String createdAt, List<TransactionDetailModel> transactions) {
+        this.noNota = noNota;
+        this.pay = pay;
+        this.statusPayment = statusPayment;
+        this.proggress = proggress;
+        this.methodDelivery = methodDelivery;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
+        this.transactions = transactions;
+    }
+
+    @NonNull
     public String getNoNota() {
         return noNota;
     }
 
-    public void setNoNota(String noNota) {
+    public void setNoNota(@NonNull String noNota) {
         this.noNota = noNota;
+    }
+
+    public String getPay() {
+        return pay;
+    }
+
+    public void setPay(String pay) {
+        this.pay = pay;
     }
 
     public boolean isStatusPayment() {
         return statusPayment;
     }
 
+    public String getStatusPaymentString() {
+        return statusPayment ? "LUNAS" : "BELUM LUNAS";
+    }
+
     public void setStatusPayment(boolean statusPayment) {
         this.statusPayment = statusPayment;
+    }
+
+    public boolean isProggress() {
+        return proggress;
+    }
+
+    public void setProggress(boolean proggress) {
+        this.proggress = proggress;
+    }
+
+    public boolean isMethodDelivery() {
+        return methodDelivery;
+    }
+
+    public void setMethodDelivery(boolean methodDelivery) {
+        this.methodDelivery = methodDelivery;
     }
 
     public String getUpdatedAt() {

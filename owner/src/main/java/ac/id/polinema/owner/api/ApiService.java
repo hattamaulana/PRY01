@@ -16,21 +16,21 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("/admin/login")
-    Call<Response<UserModel>> login(@Field("no_handphone") String no_handphone,
+    Call<Response<UserModel>> login(@Field("noHp") String no_handphone,
                                     @Field("password") String password);
 
-    @GET("/admin/order/status/new")
+    @GET("/admin/order/new")
     Call<Response<List<TransactionModel>>> getNewOrder();
 
-    @GET("/admin/order/status/on_proggress")
+    @GET("/admin/order/on_proggress")
     Call<Response<List<TransactionModel>>> getOrderOnProggress();
 
-    @GET("/admin/order/status/history")
+    @GET("/admin/order/history")
     Call<Response<List<TransactionModel>>> getOrderHistory();
 
     @FormUrlEncoded
     @PUT("/admin/order/:nota")
-    Call<Response<Boolean>> update(@Path("nota") String nota,
-                                   @Field("status_pengerjaan") String status);
+    Call<Response<Boolean>> update(@Path("noNota") String nota,
+                                   @Field("statusPengerjaan") String status);
 
 }
