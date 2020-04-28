@@ -1,5 +1,6 @@
 package ac.id.polinema.owner.ui.home;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
+
+import java.util.List;
 
 import ac.id.polinema.owner.R;
 import ac.id.polinema.owner.model.TransactionModel;
@@ -45,11 +48,26 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.Bind<T
         super.onActivityCreated(savedInstanceState);
 
         adapter = new RecyclerViewAdapter<>(R.layout.item_new_order, null, this);
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            List<TransactionModel> list = adapter.getData();
+            TransactionModel transactionModel = list.get(position);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setMessage("Ubah status order dari "+ transactionModel.getUser().getName()
+                    + " menjadi On Proggress");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Oke.", ((dialog, which) -> {
+                viewModel.changeStatus(transactionModel.getNoNota());
+            }));
+            builder.setNegativeButton("Batal.", (dialog, which) -> dialog.cancel());
+            builder.create();
+            builder.show();
+        });
+
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        viewModel.observeNewOrder()
-                .observe(getViewLifecycleOwner(), transactions -> adapter.setNewData(transactions));
-
+        viewModel.liveData.observe(getViewLifecycleOwner(), transactions ->
+                adapter.setNewData(transactions)
+        );
     }
 
     @Override

@@ -2,9 +2,11 @@ package ac.id.polinema.owner.api;
 
 import java.util.List;
 
+import ac.id.polinema.owner.model.PriceModel;
 import ac.id.polinema.owner.model.TransactionModel;
 import ac.id.polinema.owner.model.UserModel;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -29,8 +31,16 @@ public interface ApiService {
     Call<Response<List<TransactionModel>>> getOrderHistory();
 
     @FormUrlEncoded
-    @PUT("/admin/order/:nota")
+    @PUT("/admin/order/{noNota}")
     Call<Response<Boolean>> update(@Path("noNota") String nota,
                                    @Field("statusPengerjaan") String status);
 
+    @GET("/price")
+    Call<Response<List<PriceModel>>> loadPrice();
+
+    @GET("/price/save")
+    Call<Response<Boolean>> savingPrice(@Body PriceModel priceModel);
+
+    @GET("/price/update")
+    Call<Response<Boolean>> updatePrice(@Body PriceModel priceModel);
 }

@@ -23,7 +23,15 @@ public class TransactionRepository extends Repository {
         userDao = database.userDao();
     }
 
-    public LiveData<List<TransactionModel>> getNewOrder() {
+    public void changeStatus(String noNota, String status, Runnable runnable) {
+        service.update(noNota, status).enqueue(new ApiHelper.EnQueue<>(response -> {
+            Log.d(TAG, "changeStatus: "+ response.getStatus());
+            Log.d(TAG, "changeStatus: "+ response.getMessage());
+            runnable.run();
+        }));
+    }
+
+    public MutableLiveData<List<TransactionModel>> getNewOrder() {
         MutableLiveData<List<TransactionModel>> liveData = new MutableLiveData<>();
         service.getNewOrder().enqueue(new ApiHelper.EnQueue<>(response -> {
             Log.d(TAG, "getNewOrder: "+ response.getStatus());

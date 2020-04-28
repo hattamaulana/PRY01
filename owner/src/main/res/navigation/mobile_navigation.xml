@@ -28,5 +28,21 @@
         android:id="@+id/navigation_account"
         android:name="ac.id.polinema.owner.ui.account.AccountFragment"
         android:label="@string/title_account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/to_edit_price"
+            app:destination="@id/navigation_edit_price" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_edit_price"
+        android:name="ac.id.polinema.owner.ui.account.EditPriceFragment"
+        android:label="Edit"
+        tools:layout="@layout/fragment_edit_price" >
+        <argument
+            android:name="data"
+            app:argType="ac.id.polinema.owner.model.PriceModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>
