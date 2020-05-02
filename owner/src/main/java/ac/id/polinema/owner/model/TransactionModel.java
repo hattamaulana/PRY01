@@ -109,7 +109,7 @@ public class TransactionModel {
         this.pay = pay;
     }
 
-    public boolean isStatusPayment() {
+    public boolean getStatusPayment() {
         return statusPayment;
     }
 
