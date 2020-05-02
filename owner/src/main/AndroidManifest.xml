@@ -24,6 +24,9 @@
         </activity>
 
         <activity android:name=".HomeActivity" />
+        <activity
+            android:name=".ui.price.EditPriceActivity"
+            android:parentActivityName=".HomeActivity" />
     </application>
 
 </manifest>

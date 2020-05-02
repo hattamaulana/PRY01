@@ -23,11 +23,11 @@ public class TransactionRepository extends Repository {
         userDao = database.userDao();
     }
 
-    public void changeStatus(String noNota, String status, Runnable runnable) {
+    public void changeStatus(String noNota, String status, Runnable runWhenHaveDone) {
         service.update(noNota, status).enqueue(new ApiHelper.EnQueue<>(response -> {
             Log.d(TAG, "changeStatus: "+ response.getStatus());
             Log.d(TAG, "changeStatus: "+ response.getMessage());
-            runnable.run();
+            runWhenHaveDone.run();
         }));
     }
 

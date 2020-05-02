@@ -1,4 +1,4 @@
-package ac.id.polinema.owner.ui.account;
+package ac.id.polinema.owner.ui.price;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,52 +29,59 @@ import ac.id.polinema.owner.model.PriceModel;
 import ac.id.polinema.owner.ui.RecyclerViewAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-import static ac.id.polinema.owner.ui.account.AccountFragmentDirections.toEditPrice;
 import static androidx.navigation.Navigation.findNavController;
 
-public class AccountFragment extends Fragment implements RecyclerViewAdapter.Bind<PriceModel> {
+public class PriceFragment extends Fragment implements RecyclerViewAdapter.Bind<PriceModel> {
 
-    private final String TAG = AccountFragment.class.getSimpleName();
+    private final String TAG = PriceFragment.class.getSimpleName();
 
-    RecyclerViewAdapter<PriceModel> adapter;
-    AccountViewModel viewModel;
+    private RecyclerViewAdapter<PriceModel> adapter;
+    private PriceViewModel viewModel;
 
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
 
-    @OnClick(R.id.fab_add) void fabAdd() {
-        findNavController(getView()).navigate(toEditPrice());
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_account, container, false);
-        viewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+        View rootView = inflater.inflate(R.layout.fragment_price, container, false);
+        viewModel = new ViewModelProvider(this).get(PriceViewModel.class);
         ButterKnife.bind(this, rootView);
         setHasOptionsMenu(true);
         return rootView;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         adapter = new RecyclerViewAdapter<>(R.layout.item_price, null, this);
-        adapter.setOnItemChildClickListener((_adapter, view, position) -> {
+        adapter.addChildClickViewIds(R.id.iv_edit);
+        adapter.setOnItemChildClickListener((_adapter, _view, position) -> {
             List<PriceModel> prices = _adapter.getData();
             PriceModel price = prices.get(position);
-            if (view.getId() == R.id.iv_edit) {
-                Log.i(TAG, "onActivityCreated: id="+ price.getIdHarga());
-                NavDirections direction = toEditPrice().setData(price);
-                findNavController(getView()).navigate(direction);
-            }
+
+            Log.i(TAG, "onViewCreated: view id="+ _view.getId());
+            Log.i(TAG, "onViewCreated: price id="+ price.getIdHarga());
+
+            NavDirections direction = PriceFragmentDirections
+                    .homeToEditPriceActivity().setDataPrice(price);
+            findNavController(view).navigate(direction);
         });
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        viewModel.loadData();
         viewModel.liveData.observe(getViewLifecycleOwner(), prices -> adapter.setNewData(prices));
+    }
+
+    @Override
+    public void bind(BaseViewHolder holder, PriceModel priceModel) {
+        Log.i(TAG, "bind: id="+ priceModel.getIdHarga());
+        holder.setText(R.id.tv_tipe, priceModel.getType())
+                .setText(R.id.tv_kelas, priceModel.getKelas())
+                .setText(R.id.tv_price, priceModel.getPrice().toString());
     }
 
     @Override
@@ -84,20 +91,21 @@ public class AccountFragment extends Fragment implements RecyclerViewAdapter.Bin
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_logout) {
-            App.setSharedPreferences(App.NO_HANDPHONE, "");
-            startActivity(new Intent(getContext(), MainActivity.class));
-            getActivity().finish();
+        switch (item.getItemId()) {
+            case R.id.add:
+                Intent intent = new Intent(getContext(), EditPriceActivity.class);
+                NavDirections direction = PriceFragmentDirections
+                        .homeToEditPriceActivity();
+                findNavController(getView()).navigate(direction);
+                break;
+
+            case R.id.menu_logout:
+                App.setSharedPreferences(App.NO_HANDPHONE, "");
+                startActivity(new Intent(getContext(), MainActivity.class));
+                getActivity().finish();
+                break;
         }
 
         return true;
-    }
-
-    @Override
-    public void bind(BaseViewHolder holder, PriceModel priceModel) {
-        Log.i(TAG, "bind: id="+ priceModel.getIdHarga());
-        holder.setText(R.id.tv_tipe, priceModel.getType())
-              .setText(R.id.tv_kelas, priceModel.getKelas())
-              .setText(R.id.tv_price, priceModel.getPrice().toString());
     }
 }

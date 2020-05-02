@@ -35,12 +35,12 @@ public interface ApiService {
     Call<Response<Boolean>> update(@Path("noNota") String nota,
                                    @Field("statusPengerjaan") String status);
 
-    @GET("/price")
+    @GET("/prices")
     Call<Response<List<PriceModel>>> loadPrice();
 
-    @GET("/price/save")
-    Call<Response<Boolean>> savingPrice(@Body PriceModel priceModel);
+    @POST("/prices")
+    Call<Response<Boolean>> savePrice(@Body PriceModel priceModel);
 
-    @GET("/price/update")
-    Call<Response<Boolean>> updatePrice(@Body PriceModel priceModel);
+    @PUT("/prices/{id}")
+    Call<Response<Boolean>> updatePrice(@Path("id") int id, @Body PriceModel priceModel);
 }

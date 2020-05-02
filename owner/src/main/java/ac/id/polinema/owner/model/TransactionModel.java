@@ -64,6 +64,7 @@ public class TransactionModel {
     public TransactionModel() {
     }
 
+    @Ignore
     public TransactionModel(@NonNull String noNota, String pay, boolean statusPayment,
                             boolean proggress, boolean methodDelivery, String updatedAt,
                             String createdAt) {

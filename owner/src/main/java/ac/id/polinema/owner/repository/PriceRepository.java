@@ -13,27 +13,33 @@ import ac.id.polinema.owner.model.PriceModel;
 
 public class PriceRepository extends Repository {
 
+    private static final String TAG = PriceRepository.class.getSimpleName();
+
     public PriceRepository(Context context) {
         super(context);
     }
 
-    public void save(PriceModel model, Runnable runnable) {
-        service.savingPrice(model).enqueue(new ApiHelper.EnQueue<>(response -> {
+    public void save(PriceModel model, RunWhenHaveDone<Boolean> runWhenHaveDone) {
+        Log.i(TAG, "save: price id="+ model.getIdHarga());
+
+        service.savePrice(model).enqueue(new ApiHelper.EnQueue<>(response -> {
             Log.i(TAG, "save: code="+ response.getStatus());
             Log.i(TAG, "save: message="+ response.getMessage());
 
             boolean status = (boolean) response.getData();
-            if (status) runnable.run();
+            runWhenHaveDone.run(status);
         }));
     }
 
-    public void update(PriceModel model, Runnable runnable) {
-        service.updatePrice(model).enqueue(new ApiHelper.EnQueue<>(response -> {
+    public void update(PriceModel model, RunWhenHaveDone<Boolean> runWhenHaveDone) {
+        Log.i(TAG, "update: price id="+ model.getIdHarga());
+
+        service.updatePrice(model.getIdHarga(), model).enqueue(new ApiHelper.EnQueue<>(response -> {
             Log.i(TAG, "update: code="+ response.getStatus());
             Log.i(TAG, "update: message="+ response.getMessage());
 
             boolean status = (boolean) response.getData();
-            if (status) runnable.run();
+            runWhenHaveDone.run(status);
         }));
     }
 

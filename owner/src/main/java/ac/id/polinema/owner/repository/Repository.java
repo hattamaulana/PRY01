@@ -37,4 +37,8 @@ public class Repository{
             return true;
         }
     }
+
+    public interface RunWhenHaveDone<T> {
+        void run(T t);
+    }
 }
