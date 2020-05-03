@@ -1,5 +1,8 @@
 package ac.id.polinema.owner.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -12,7 +15,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 @Entity(tableName = "transaksi")
-public class TransactionModel {
+public class TransactionModel implements Parcelable {
 
     @PrimaryKey
     @NonNull
@@ -173,4 +176,47 @@ public class TransactionModel {
         array = transactions.toArray(array);
         return array;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.noNota);
+        dest.writeString(this.pay);
+        dest.writeByte(this.statusPayment ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.proggress ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.methodDelivery ? (byte) 1 : (byte) 0);
+        dest.writeString(this.updatedAt);
+        dest.writeString(this.createdAt);
+        dest.writeTypedList(this.transactions);
+        dest.writeParcelable(this.user, flags);
+    }
+
+    protected TransactionModel(Parcel in) {
+        this.noNota = in.readString();
+        this.pay = in.readString();
+        this.statusPayment = in.readByte() != 0;
+        this.proggress = in.readByte() != 0;
+        this.methodDelivery = in.readByte() != 0;
+        this.updatedAt = in.readString();
+        this.createdAt = in.readString();
+        this.transactions = in.createTypedArrayList(TransactionDetailModel.CREATOR);
+        this.user = in.readParcelable(UserModel.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<TransactionModel> CREATOR = new Parcelable.Creator<TransactionModel>() {
+        @Override
+        public TransactionModel createFromParcel(Parcel source) {
+            return new TransactionModel(source);
+        }
+
+        @Override
+        public TransactionModel[] newArray(int size) {
+            return new TransactionModel[size];
+        }
+    };
 }

@@ -27,7 +27,7 @@ public class Utils {
                 .show();
     }
 
-    public static String getDateTimeReadable(String timestamps, Integer index) {
+    private static String getDateTimeReadable(String timestamps, Integer index) {
         Log.i(TAG, "getDateTimeReadable: timestamps=" + timestamps);
         String[] split = timestamps.split("T");
         String date = split[0];
@@ -37,6 +37,11 @@ public class Utils {
         }
 
         return date + " " + time;
+    }
+
+    public static String getDateTimeReadable(String timestamp) {
+        return getDateTimeReadable(timestamp, 0) + " " +
+                getDateTimeReadable(timestamp, 1);
     }
 
     public static String getDateReadable(String timestamp) {

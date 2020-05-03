@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
+import ac.id.polinema.owner.api.BodyRequest;
 import ac.id.polinema.owner.database.UserDao;
 import ac.id.polinema.owner.helper.ApiHelper;
 import ac.id.polinema.owner.model.TransactionModel;
@@ -21,6 +22,15 @@ public class TransactionRepository extends Repository {
     public TransactionRepository(Context context) {
         super(context);
         userDao = database.userDao();
+    }
+
+    public void update(BodyRequest.Order order, RunWhenHaveDone<Boolean> runnable) {
+        service.update(order).enqueue(new ApiHelper.EnQueue<>(response -> {
+            Log.i(TAG, "update: "+ response.getStatus());
+            Log.i(TAG, "update: "+ response.getMessage());
+
+            runnable.run((Boolean) response.getData());
+        }));
     }
 
     public void changeStatus(String noNota, String status, Runnable runWhenHaveDone) {

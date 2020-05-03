@@ -35,6 +35,9 @@ public interface ApiService {
     Call<Response<Boolean>> update(@Path("noNota") String nota,
                                    @Field("statusPengerjaan") String status);
 
+    @PUT("/admin/order/")
+    Call<Response<Boolean>> update(@Body BodyRequest.Order order);
+
     @GET("/prices")
     Call<Response<List<PriceModel>>> loadPrice();
 

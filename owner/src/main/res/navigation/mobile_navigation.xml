@@ -10,6 +10,9 @@
         android:name="ac.id.polinema.owner.ui.home.HomeFragment"
         android:label="De Laundry"
         tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/home_to_AcceptOrder"
+            app:destination="@id/acceptOrderFragment" />
     </fragment>
 
     <fragment
@@ -65,6 +68,15 @@
         <argument
             android:name="transaction_created"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/acceptOrderFragment"
+        android:name="ac.id.polinema.owner.ui.home.AcceptOrderFragment"
+        android:label="fragment_accept_order"
+        tools:layout="@layout/fragment_accept_order" >
+        <argument
+            android:name="data"
+            app:argType="ac.id.polinema.owner.model.TransactionModel" />
     </fragment>
 
 </navigation>

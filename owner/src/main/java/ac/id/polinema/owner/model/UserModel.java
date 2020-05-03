@@ -1,5 +1,8 @@
 package ac.id.polinema.owner.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -10,7 +13,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "user")
-public class UserModel {
+public class UserModel implements Parcelable {
 
     @NonNull
     @PrimaryKey
@@ -120,4 +123,43 @@ public class UserModel {
     public void setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.idUser);
+        dest.writeString(this.name);
+        dest.writeString(this.noHandphone);
+        dest.writeString(this.password);
+        dest.writeString(this.address);
+        dest.writeString(this.createdAt);
+        dest.writeString(this.updateAt);
+    }
+
+    protected UserModel(Parcel in) {
+        this.idUser = in.readString();
+        this.name = in.readString();
+        this.noHandphone = in.readString();
+        this.password = in.readString();
+        this.address = in.readString();
+        this.createdAt = in.readString();
+        this.updateAt = in.readString();
+    }
+
+    public static final Parcelable.Creator<UserModel> CREATOR = new Parcelable.Creator<UserModel>() {
+        @Override
+        public UserModel createFromParcel(Parcel source) {
+            return new UserModel(source);
+        }
+
+        @Override
+        public UserModel[] newArray(int size) {
+            return new UserModel[size];
+        }
+    };
 }
