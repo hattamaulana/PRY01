@@ -75,7 +75,6 @@ public class TransactionModel {
         this.methodDelivery = methodDelivery;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
-        this.transactions = transactions;
     }
 
     @Ignore
@@ -167,5 +166,11 @@ public class TransactionModel {
 
     public void setUser(UserModel user) {
         this.user = user;
+    }
+
+    public TransactionDetailModel[] getTransactionsArray() {
+        TransactionDetailModel[] array = new TransactionDetailModel[transactions.size()];
+        array = transactions.toArray(array);
+        return array;
     }
 }

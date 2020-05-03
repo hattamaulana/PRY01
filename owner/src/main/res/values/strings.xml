@@ -4,7 +4,7 @@
     <!-- Menu title -->
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_transactions">Transaction</string>
+    <string name="title_transactions">Transaksi</string>
     <string name="title_history">History</string>
     <string name="title_account">Setting</string>
 
