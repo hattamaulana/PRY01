@@ -37,7 +37,7 @@ public class TransactionRepository {
         executorService = Executors.newSingleThreadExecutor();
     }
 
-    public MutableLiveData<Boolean> order(List<String> types) {
+    public MutableLiveData<Boolean> order(List<String> types, String method) {
         PriceDao dao = database.priceDao();
         BodyRequest.Order order = new BodyRequest.Order();
         MutableLiveData<Boolean> liveStatus = new MutableLiveData<>();
@@ -47,9 +47,11 @@ public class TransactionRepository {
                 List<Integer> ids = dao.getIdBytype(types);
                 order.setIdUser(App.getIdUser());
                 order.setIdPrices(ids);
+                order.setMethodDelivery(method);
                 api.createTransaction(order)
                    .enqueue(new ApiHelper.EnQueue<>(response -> {
-                       Log.d("TAG", "order: "+ response.getData().toString());
+                       Log.i("TAG", "order: status code="+ response.getStatus());
+                       Log.i("TAG", "order: message="+ response.getMessage());
                        liveStatus.postValue(true);
                 }));
             });
