@@ -40,11 +40,4 @@ public class HomeViewModel extends AndroidViewModel {
     LiveData<List<PriceModel>> loadDataPrice() {
         return priceRepository.getPrice();
     }
-
-    void changeStatus(String noNota) {
-        final String ON_PROGGRESS = "ON PROGGRESS";
-        transactionRepository.changeStatus(noNota, ON_PROGGRESS, () -> {
-            liveData = transactionRepository.getNewOrder();
-        });
-    }
 }

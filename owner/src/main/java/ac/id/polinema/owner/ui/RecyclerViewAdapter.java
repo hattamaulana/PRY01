@@ -1,11 +1,13 @@
 package ac.id.polinema.owner.ui;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.module.DraggableModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
 import java.util.List;
 
-public class RecyclerViewAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder> {
+public class RecyclerViewAdapter<T> extends BaseQuickAdapter<T, BaseViewHolder> implements
+        DraggableModule {
 
     private Bind<T> binding;
 

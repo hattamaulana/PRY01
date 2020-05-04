@@ -45,7 +45,7 @@ public class TransactionRepository extends Repository {
         service.update(noNota, status).enqueue(new ApiHelper.EnQueue<>(response -> {
             Log.d(TAG, "changeStatus: "+ response.getStatus());
             Log.d(TAG, "changeStatus: "+ response.getMessage());
-            runWhenHaveDone.run();
+            if (runWhenHaveDone != null) runWhenHaveDone.run();
         }));
     }
 

@@ -46,4 +46,9 @@ public class TransactionsViewModel extends AndroidViewModel {
             }
         });
     }
+
+    void changeStatus(String noNota) {
+        final String ON_PROGGRESS = "DONE";
+        transactionRepository.changeStatus(noNota, ON_PROGGRESS, null);
+    }
 }
