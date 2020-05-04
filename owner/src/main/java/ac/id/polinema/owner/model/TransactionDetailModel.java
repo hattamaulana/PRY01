@@ -122,7 +122,7 @@ public class TransactionDetailModel implements Parcelable {
     }
 
     public String getStatusString() {
-        return (status) ? "DONE" : "PROGGRESS";
+        return (status) ? "Selesai" : "Proggress";
     }
 
     @Override

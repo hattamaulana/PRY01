@@ -1,6 +1,7 @@
 package ac.id.polinema.owner.ui.transactions;
 
 import android.app.Application;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -33,5 +34,16 @@ public class TransactionsViewModel extends AndroidViewModel {
 
     LiveData<List<PriceModel>> fetchDataPrices() {
         return priceRepository.getPrice();
+    }
+
+    void updateItem(int id) {
+        transactionRepository.updatePerItemDetailTransaction(id, result -> {
+            if (!result) {
+                Toast.makeText(getApplication(),
+                        "Terjadi Kesalahan saat melakukan update data silahkan ulangi kembali",
+                        Toast.LENGTH_LONG)
+                        .show();
+            }
+        });
     }
 }

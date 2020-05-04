@@ -38,6 +38,9 @@ public interface ApiService {
     @PUT("/admin/order/")
     Call<Response<Boolean>> update(@Body BodyRequest.Order order);
 
+    @PUT("/admin/order/item/{id}")
+    Call<Response<Boolean>> update(@Path("id") int id);
+
     @GET("/prices")
     Call<Response<List<PriceModel>>> loadPrice();
 

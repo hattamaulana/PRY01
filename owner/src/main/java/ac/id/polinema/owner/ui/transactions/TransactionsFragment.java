@@ -64,8 +64,16 @@ public class TransactionsFragment extends Fragment implements
     }
 
     @Override
-    public void bind(BaseViewHolder holder, TransactionModel o) {
-        holder.setText(R.id.tv_nota, o.getNoNota())
-              .setText(R.id.tv_tipe, o.getUser().getName());
+    public void bind(BaseViewHolder holder, TransactionModel model) {
+        holder.setText(R.id.tv_nota, model.getNoNota())
+              .setText(R.id.tv_tipe, model.getUser().getName());
+        boolean isDone = true;
+        for (TransactionDetailModel _model: model.getTransactions()) {
+            if (!_model.isStatus()) {
+                isDone = false;
+                break;
+            }
+        }
+        holder.setVisible(R.id.iv_checked, isDone);
     }
 }

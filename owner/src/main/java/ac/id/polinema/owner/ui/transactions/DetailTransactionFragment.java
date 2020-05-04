@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -70,9 +71,21 @@ public class DetailTransactionFragment extends Fragment implements
 
     @Override
     public void bind(BaseViewHolder holder, TransactionDetailModel transactionDetailModel) {
-        holder.setText(R.id.tv_weight, transactionDetailModel.getBobot()+ " Kg")
-                .setText(R.id.tv_status, transactionDetailModel.getStatusString());
-
+        holder.setText(R.id.tv_weight, transactionDetailModel.getBobot()+ " Kg");
+        CheckBox checkBox = holder.findView(R.id.cb_status);
+        checkBox.setChecked(transactionDetailModel.isStatus());
+        checkBox.setText(transactionDetailModel.getStatusString());
+        checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                transactionDetailModel.setStatus(isChecked);
+                checkBox.setText(transactionDetailModel.getStatusString());
+                checkBox.setEnabled(false);
+                viewModel.updateItem(transactionDetailModel.getId());
+            }
+        });
+        if (transactionDetailModel.isStatus()) {
+            checkBox.setEnabled(false);
+        }
         viewModel.fetchDataPrices().observe(getViewLifecycleOwner(), prices -> {
             for (PriceModel price : prices) {
                 if (price.getIdHarga() == transactionDetailModel.getIdHarga()) {
