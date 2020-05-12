@@ -1,6 +1,7 @@
 package ac.id.polinema.owner.ui.histroy;
 
 import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,15 +55,16 @@ public class HistoryFragment extends Fragment
                     break;
 
                 case R.id.iv_expand:
-                    ImageView iv = view.findViewById(R.id.iv_expand);
-                    RecyclerView rv = view.findViewById(R.id.rv_parent);
+                    RecyclerView rv = (RecyclerView) _adapter.getViewByPosition(position, R.id.rv_parent);
+                    Drawable drawable;
                     if (rv.getVisibility() == View.GONE) {
                         rv.setVisibility(View.VISIBLE);
-                        iv.setImageDrawable(getResources().getDrawable(R.drawable.ic_expand_less_24dp));
+                        drawable = getResources().getDrawable(R.drawable.ic_expand_less_24dp);
                     } else {
                         rv.setVisibility(View.GONE);
-                        iv.setImageDrawable(getResources().getDrawable(R.drawable.ic_expand_more_24dp));
+                        drawable = getResources().getDrawable(R.drawable.ic_expand_more_24dp);
                     }
+                    ((ImageView) view).setImageDrawable(drawable);
                     break;
             }
         }));
@@ -87,7 +89,7 @@ public class HistoryFragment extends Fragment
         childRecyclerView.setAdapter(adapter);
 
         int color = (model.getStatusPayment()) ?
-                R.color.tint_green : R.color.tint_red;
+                R.color.tint_red : R.color.tint_green ;
         ColorStateList stateList = requireContext().getResources().getColorStateList(color);
         tvStatus.setBackgroundTintList(stateList);
     }
