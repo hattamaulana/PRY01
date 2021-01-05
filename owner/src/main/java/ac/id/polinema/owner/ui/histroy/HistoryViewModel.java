@@ -13,6 +13,7 @@ import java.util.List;
 import ac.id.polinema.owner.model.PriceModel;
 import ac.id.polinema.owner.model.TransactionModel;
 import ac.id.polinema.owner.repository.PriceRepository;
+import ac.id.polinema.owner.repository.Repository;
 import ac.id.polinema.owner.repository.TransactionRepository;
 
 public class HistoryViewModel extends AndroidViewModel {
@@ -33,5 +34,9 @@ public class HistoryViewModel extends AndroidViewModel {
 
     public LiveData<List<PriceModel>> fetchDataPrices() {
         return priceRepository.getPrice();
+    }
+
+    void updatePayment(String noNota, Repository.RunWhenHaveDone<Boolean> runnable) {
+        transactionRepository.updatePayment(noNota, runnable);
     }
 }

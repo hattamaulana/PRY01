@@ -42,7 +42,7 @@ public class TransactionModel implements Parcelable {
     @ColumnInfo(name = "methodeDelivery")
     @SerializedName("methodeDelivery")
     @Expose
-    private boolean methodDelivery;
+    private String methodDelivery;
 
     @ColumnInfo(name = "updatedAt")
     @SerializedName("updatedAt")
@@ -69,7 +69,7 @@ public class TransactionModel implements Parcelable {
 
     @Ignore
     public TransactionModel(@NonNull String noNota, String pay, boolean statusPayment,
-                            boolean proggress, boolean methodDelivery, String updatedAt,
+                            boolean proggress, String methodDelivery, String updatedAt,
                             String createdAt) {
         this.noNota = noNota;
         this.pay = pay;
@@ -82,7 +82,7 @@ public class TransactionModel implements Parcelable {
 
     @Ignore
     public TransactionModel(@NonNull String noNota, String pay, boolean statusPayment,
-                            boolean proggress, boolean methodDelivery, String updatedAt,
+                            boolean proggress, String methodDelivery, String updatedAt,
                             String createdAt, List<TransactionDetailModel> transactions) {
         this.noNota = noNota;
         this.pay = pay;
@@ -131,11 +131,11 @@ public class TransactionModel implements Parcelable {
         this.proggress = proggress;
     }
 
-    public boolean isMethodDelivery() {
+    public String getMethodDelivery() {
         return methodDelivery;
     }
 
-    public void setMethodDelivery(boolean methodDelivery) {
+    public void setMethodDelivery(String methodDelivery) {
         this.methodDelivery = methodDelivery;
     }
 
@@ -177,7 +177,6 @@ public class TransactionModel implements Parcelable {
         return array;
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -189,7 +188,7 @@ public class TransactionModel implements Parcelable {
         dest.writeString(this.pay);
         dest.writeByte(this.statusPayment ? (byte) 1 : (byte) 0);
         dest.writeByte(this.proggress ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.methodDelivery ? (byte) 1 : (byte) 0);
+        dest.writeString(this.methodDelivery);
         dest.writeString(this.updatedAt);
         dest.writeString(this.createdAt);
         dest.writeTypedList(this.transactions);
@@ -201,14 +200,14 @@ public class TransactionModel implements Parcelable {
         this.pay = in.readString();
         this.statusPayment = in.readByte() != 0;
         this.proggress = in.readByte() != 0;
-        this.methodDelivery = in.readByte() != 0;
+        this.methodDelivery = in.readString();
         this.updatedAt = in.readString();
         this.createdAt = in.readString();
         this.transactions = in.createTypedArrayList(TransactionDetailModel.CREATOR);
         this.user = in.readParcelable(UserModel.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<TransactionModel> CREATOR = new Parcelable.Creator<TransactionModel>() {
+    public static final Creator<TransactionModel> CREATOR = new Creator<TransactionModel>() {
         @Override
         public TransactionModel createFromParcel(Parcel source) {
             return new TransactionModel(source);

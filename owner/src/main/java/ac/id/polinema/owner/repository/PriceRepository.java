@@ -34,7 +34,7 @@ public class PriceRepository extends Repository {
     public void update(PriceModel model, RunWhenHaveDone<Boolean> runWhenHaveDone) {
         Log.i(TAG, "update: price id="+ model.getIdHarga());
 
-        service.updatePrice(model.getIdHarga(), model).enqueue(new ApiHelper.EnQueue<>(response -> {
+        service.update(model.getIdHarga(), model).enqueue(new ApiHelper.EnQueue<>(response -> {
             Log.i(TAG, "update: code="+ response.getStatus());
             Log.i(TAG, "update: message="+ response.getMessage());
 

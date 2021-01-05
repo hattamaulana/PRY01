@@ -66,6 +66,7 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.Bind<T
     public void bind(BaseViewHolder holder, TransactionModel o) {
         UserModel user =  o.getUser();
         holder.setText(R.id.tv_name, user.getName())
-              .setText(R.id.tv_address, user.getAddress());
+              .setText(R.id.tv_address, user.getAddress())
+              .setText(R.id.tv_method_delivery, o.getMethodDelivery());
     }
 }

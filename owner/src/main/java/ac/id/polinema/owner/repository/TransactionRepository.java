@@ -24,6 +24,14 @@ public class TransactionRepository extends Repository {
         userDao = database.userDao();
     }
 
+    public void updatePayment(String noNota, RunWhenHaveDone<Boolean> runnable) {
+        service.update(noNota).enqueue(new ApiHelper.EnQueue<>(response -> {
+            Log.i(TAG, "updatePerItemDetailTransaction: "+ response.getStatus());
+            Log.i(TAG, "updatePerItemDetailTransaction: "+ response.getMessage());
+            runnable.run((Boolean) response.getData());
+        }));
+    }
+
     public void updatePerItemDetailTransaction(int id, RunWhenHaveDone<Boolean> runnable) {
         service.update(id).enqueue(new ApiHelper.EnQueue<>(response -> {
             Log.i(TAG, "updatePerItemDetailTransaction: "+ response.getStatus());

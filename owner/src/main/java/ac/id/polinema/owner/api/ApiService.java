@@ -48,5 +48,9 @@ public interface ApiService {
     Call<Response<Boolean>> savePrice(@Body PriceModel priceModel);
 
     @PUT("/prices/{id}")
-    Call<Response<Boolean>> updatePrice(@Path("id") int id, @Body PriceModel priceModel);
+    Call<Response<Boolean>> update(@Path("id") int id,
+                                   @Body PriceModel priceModel);
+
+    @PUT("admin/order/pembayaran/{noNota}")
+    Call<Response<Boolean>> update(@Path("noNota") String noNota);
 }

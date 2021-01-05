@@ -17,6 +17,7 @@
 
             <include
                 android:id="@+id/include"
+                android:visibility="gone"
                 layout="@layout/banner" />
 
             <androidx.recyclerview.widget.RecyclerView

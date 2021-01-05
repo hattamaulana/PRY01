@@ -6,7 +6,12 @@ import java.util.List;
 
 public class BodyRequest {
 
+    /* ************************************** *
+     *  Class Weight
+     *  ************************************** */
+
     public static class Weight {
+
         @SerializedName("id") int id;
         @SerializedName("weight") int weight;
 
@@ -35,6 +40,10 @@ public class BodyRequest {
             this.weight = weight;
         }
     }
+
+    /* ************************************** *
+    *  Class Order
+    *  ************************************** */
 
     public static class Order {
 
@@ -68,5 +77,4 @@ public class BodyRequest {
             this.weights = weights;
         }
     }
-    /* End Class Order */
 }

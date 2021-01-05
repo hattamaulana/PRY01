@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -52,6 +53,22 @@ public class HistoryFragment extends Fragment
         adapter.setOnItemChildClickListener(((_adapter, view, position) -> {
             switch (view.getId()) {
                 case R.id.tv_status:
+                    TransactionModel model = (TransactionModel) _adapter.getData().get(position);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("Update Pembayaran");
+                    builder.setMessage("Updata Transaksi " + model.getNoNota());
+                    builder.setPositiveButton("UPDATE", (dialog, which) -> {
+                        viewModel.updatePayment(model.getNoNota(), status -> {
+                            int color = (model.getStatusPayment()) ?
+                                    R.color.tint_red : R.color.tint_green ;
+                            ColorStateList stateList = requireContext().getResources().getColorStateList(color);
+                            model.setStatusPayment(true);
+                            ((TextView) view).setText(model.getStatusPaymentString());
+                            view.setBackgroundTintList(stateList);
+                        });
+                    });
+                    builder.create();
+                    builder.show();
                     break;
 
                 case R.id.iv_expand:

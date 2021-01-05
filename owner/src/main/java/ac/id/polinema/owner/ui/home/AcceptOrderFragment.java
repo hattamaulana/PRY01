@@ -106,7 +106,7 @@ public class AcceptOrderFragment extends Fragment implements
         viewModel.loadDataPrice().observe(getViewLifecycleOwner(), prices -> {
             for (PriceModel price : prices) {
                 if (price.getIdHarga() == model.getIdHarga()) {
-                    weights.add(new BodyRequest.Weight(model.getIdHarga()));
+                    weights.add(new BodyRequest.Weight(model.getId()));
                     String text = price.getKelas() + " / " + price.getType();
                     holder.setText(R.id.tv_kind, text);
                 }

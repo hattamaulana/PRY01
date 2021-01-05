@@ -72,7 +72,7 @@ public class PriceModel implements Parcelable {
     }
 
     public void setKelas(String kelas) {
-        this.kelas = kelas;
+        this.kelas = kelas.toUpperCase();
     }
 
     public String getType() {
@@ -80,7 +80,7 @@ public class PriceModel implements Parcelable {
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.type = type.toUpperCase();
     }
 
     public Long getPrice() {
